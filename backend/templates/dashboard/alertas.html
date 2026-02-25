@@ -40,13 +40,13 @@
   <div class="table-wrap">
     <table>
       <thead>
-        <tr><th>Codigo</th><th>Titulo</th><th>Severidade</th><th>Criado em</th><th>Detalhes</th></tr>
+        <tr><th>Codigo</th><th>Titulo</th><th>Severidade</th><th class="hide-mobile">Criado em</th><th>Detalhes</th></tr>
       </thead>
       <tbody>
         {% for item in page_obj %}
         <tr>
           <td><span class="badge">{{ item.codigo }}</span></td>
-          <td>{{ item.titulo }}</td>
+          <td class="cell-text">{{ item.titulo }}</td>
           <td>
             {% if item.severidade|lower == 'alta' %}
             <span class="badge danger">{{ item.severidade }}</span>
@@ -56,8 +56,8 @@
             <span class="badge success">{{ item.severidade }}</span>
             {% endif %}
           </td>
-          <td>{{ item.criado_em }}</td>
-          <td>{{ item.detalhes|truncatechars:140 }}</td>
+          <td class="hide-mobile">{{ item.criado_em }}</td>
+          <td class="cell-text">{{ item.detalhes|truncatechars:140 }}</td>
         </tr>
         {% empty %}
         <tr><td colspan="5">Nenhum alerta encontrado.</td></tr>

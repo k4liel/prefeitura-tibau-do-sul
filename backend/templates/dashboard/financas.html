@@ -113,18 +113,18 @@
         <tr>
           <th>Secretaria</th>
           <th>Orcamento</th>
-          <th>Empenhado</th>
-          <th>Liquidado</th>
+          <th class="hide-mobile">Empenhado</th>
+          <th class="hide-mobile">Liquidado</th>
           <th>Pago</th>
         </tr>
       </thead>
       <tbody>
         {% for d in despesas %}
         <tr>
-          <td>{{ d.secretaria }}</td>
+          <td class="cell-text">{{ d.secretaria }}</td>
           <td class="num">{{ d.orcamento|currency_brl }}</td>
-          <td class="num">{{ d.empenhado|currency_brl }}</td>
-          <td class="num">{{ d.liquidado|currency_brl }}</td>
+          <td class="num hide-mobile">{{ d.empenhado|currency_brl }}</td>
+          <td class="num hide-mobile">{{ d.liquidado|currency_brl }}</td>
           <td class="num">{{ d.pago|currency_brl }}</td>
         </tr>
         {% empty %}

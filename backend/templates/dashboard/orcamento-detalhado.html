@@ -69,8 +69,8 @@
           <th>Unidade</th>
           <th>Acao</th>
           <th>Funcao</th>
-          <th>Subfuncao</th>
-          <th>Elemento Despesa</th>
+          <th class="hide-mobile">Subfuncao</th>
+          <th class="hide-mobile">Elemento Despesa</th>
           <th>Valor Inicial</th>
           <th>Valor Atualizado</th>
           <th>Valor Disponivel</th>
@@ -79,11 +79,11 @@
       <tbody>
         {% for item in page_obj %}
         <tr>
-          <td>{{ item.unidade|default:"-" }}</td>
-          <td>{{ item.acao|default:"-"|truncatechars:110 }}</td>
+          <td class="cell-text">{{ item.unidade|default:"-" }}</td>
+          <td class="cell-text">{{ item.acao|default:"-"|truncatechars:110 }}</td>
           <td><span class="badge accent">{{ item.funcao|default:"-" }}</span></td>
-          <td>{{ item.subfuncao|default:"-" }}</td>
-          <td>{{ item.elemento_despesa|default:"-" }}</td>
+          <td class="hide-mobile">{{ item.subfuncao|default:"-" }}</td>
+          <td class="hide-mobile">{{ item.elemento_despesa|default:"-" }}</td>
           <td class="num">{{ item.valor_inicial|currency_brl }}</td>
           <td class="num">{{ item.valor_atualizado|currency_brl }}</td>
           <td class="num">{{ item.valor_disponivel|currency_brl }}</td>

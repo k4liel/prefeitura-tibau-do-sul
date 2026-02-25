@@ -75,12 +75,12 @@
     <table>
       <thead>
         <tr>
-          <th>Numero</th>
+          <th class="hide-mobile">Numero</th>
           <th>Autoria</th>
           <th>Tipo</th>
           <th>Origem</th>
           <th>Objeto</th>
-          <th>Funcao</th>
+          <th class="hide-mobile">Funcao</th>
           <th>Valor Previsto</th>
           <th>Valor Pago</th>
           <th>Data</th>
@@ -89,12 +89,12 @@
       <tbody>
         {% for e in page_obj %}
         <tr>
-          <td>{{ e.numero|default:"-" }}</td>
-          <td>{{ e.autoria|default:"-" }}</td>
+          <td class="hide-mobile">{{ e.numero|default:"-" }}</td>
+          <td class="cell-text">{{ e.autoria|default:"-" }}</td>
           <td><span class="badge accent">{{ e.tipo|default:"-" }}</span></td>
           <td><span class="badge">{{ e.origem_recurso|default:"-" }}</span></td>
-          <td>{{ e.objeto|default:"-"|truncatechars:120 }}</td>
-          <td>{{ e.funcao_governo|default:"-" }}</td>
+          <td class="cell-text">{{ e.objeto|default:"-"|truncatechars:120 }}</td>
+          <td class="hide-mobile">{{ e.funcao_governo|default:"-" }}</td>
           <td class="num">{{ e.valor_previsto|currency_brl }}</td>
           <td class="num">{{ e.valor_pago|currency_brl }}</td>
           <td>{{ e.data_emenda|date:"d/m/Y"|default:"-" }}</td>

@@ -89,11 +89,11 @@
 <section class="panel">
   <div class="table-wrap">
     <table>
-      <thead><tr><th>Certame</th><th>Modalidade</th><th>Status</th><th>Valor</th><th>Objeto</th><th>Edital</th></tr></thead>
+      <thead><tr><th>Certame</th><th>Modalidade</th><th>Status</th><th>Valor</th><th>Objeto</th><th class="hide-mobile">Edital</th></tr></thead>
       <tbody>
         {% for item in page_obj %}
         <tr>
-          <td>{{ item.certame }}</td>
+          <td class="cell-text">{{ item.certame }}</td>
           <td><span class="badge">{{ item.modalidade }}</span></td>
           <td>
             {% if item.status == "Homologada" or item.status == "Concluida" %}
@@ -107,8 +107,8 @@
             {% endif %}
           </td>
           <td class="num">{{ item.valor|currency_brl }}</td>
-          <td>{{ item.objeto|truncatechars:140 }}</td>
-          <td>
+          <td class="cell-text">{{ item.objeto|truncatechars:140 }}</td>
+          <td class="hide-mobile">
             {% if item.link_edital %}
             <a href="{{ item.link_edital }}" target="_blank" rel="noreferrer" title="Ver edital">&#128196;</a>
             {% else %}

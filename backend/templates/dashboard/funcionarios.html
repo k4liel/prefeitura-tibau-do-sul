@@ -37,14 +37,14 @@
 <section class="panel">
   <div class="table-wrap">
     <table>
-      <thead><tr><th>Matricula</th><th>Nome</th><th>Cargo</th><th>Orgao</th><th>Vinculo</th><th>Bruto</th><th>Liquido</th></tr></thead>
+      <thead><tr><th class="hide-mobile">Matricula</th><th>Nome</th><th>Cargo</th><th>Orgao</th><th>Vinculo</th><th>Bruto</th><th>Liquido</th></tr></thead>
       <tbody>
         {% for item in page_obj %}
         <tr>
-          <td>{{ item.matricula|default:"-" }}</td>
-          <td>{{ item.nome }}</td>
-          <td>{{ item.cargo|default:"-" }}</td>
-          <td>{{ item.orgao }}</td>
+          <td class="hide-mobile">{{ item.matricula|default:"-" }}</td>
+          <td class="cell-text">{{ item.nome }}</td>
+          <td class="cell-text">{{ item.cargo|default:"-" }}</td>
+          <td class="cell-text">{{ item.orgao }}</td>
           <td>{{ item.vinculo }}</td>
           <td class="num">R$ {{ item.valor_bruto|floatformat:2 }}</td>
           <td class="num">R$ {{ item.valor_liquido|floatformat:2 }}</td>

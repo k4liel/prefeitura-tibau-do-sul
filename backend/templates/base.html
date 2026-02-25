@@ -456,6 +456,13 @@
       font-size: 13px;
       white-space: nowrap;
     }
+    /* Allow wrapping on description / long-text columns */
+    td.cell-text {
+      white-space: normal;
+      min-width: 180px;
+      max-width: 340px;
+      word-break: break-word;
+    }
     th {
       color: var(--muted);
       background: var(--panel-soft);
@@ -476,6 +483,8 @@
     tr:hover td { background: var(--brand-light); }
     .num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 500; }
     .subtle { color: var(--muted); }
+    /* Hide columns marked as desktop-only on mobile */
+    .hide-mobile { /* toggled via media query */ }
 
     /* ─── Badges ─── */
     .badge {
@@ -802,6 +811,12 @@
       .export-bar { flex-wrap: wrap; }
       .split { gap: 8px; }
       th, td { padding: 8px 10px; font-size: 12px; }
+      /* Allow text wrap on mobile tables for readability */
+      th, td { white-space: normal; word-break: break-word; }
+      .num { white-space: nowrap; word-break: normal; }
+      .badge { white-space: nowrap; }
+      td.cell-text { min-width: 140px; max-width: 260px; }
+      .hide-mobile { display: none; }
     }
 
     @media (max-width: 640px) {
@@ -812,6 +827,10 @@
       .page-intro { margin-bottom: 14px; padding-bottom: 12px; }
       .kpi { padding: 14px; }
       .kpi .v { font-size: 18px; }
+      /* KPI two-column layout on small phones */
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-2 { grid-template-columns: 1fr; }
       .chart-row { grid-template-columns: 1fr; gap: 2px; }
       .chart-label { font-size: 12px; }
       .chart-value { text-align: left; min-width: auto; font-size: 13px; }
@@ -826,6 +845,9 @@
       .mobile-topbar { padding: 8px 12px 8px 56px; }
       .mobile-topbar img { height: 30px; }
       .menu-toggle { top: 10px; left: 10px; width: 40px; height: 40px; }
+      /* Compact table on very small screens */
+      th, td { padding: 7px 8px; font-size: 11px; }
+      td.cell-text { min-width: 120px; max-width: 200px; font-size: 11px; }
     }
 
     @media (max-width: 400px) {
@@ -833,7 +855,8 @@
       .panel { padding: 14px 12px; }
       .page-intro h1 { font-size: 18px; }
       .kpi .v { font-size: 16px; }
-      th, td { padding: 7px 8px; font-size: 11px; }
+      .kpi .label { font-size: 10px; }
+      .kpi { padding: 12px 10px; }
     }
 
     /* ─── Print ─── */
