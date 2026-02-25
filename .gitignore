@@ -18,8 +18,12 @@ node_modules/
 test-results/
 e2e/test-results/
 
-# Data (large files)
+# Data (large raw files)
 data/
+
+# Keep seed data and fixtures in git
+!backend/seed_data/
+!backend/fixtures/
 
 # OS
 .DS_Store

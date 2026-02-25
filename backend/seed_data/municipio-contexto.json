@@ -1,0 +1,320 @@
+{
+  "ibge": {
+    "municipio": "Tibau do Sul",
+    "codigo_ibge": "2414209",
+    "uf": "RN",
+    "regiao_imediata": "Canguaretama",
+    "regiao_intermediaria": "Natal",
+    "populacao_estimada_2025": 18080,
+    "area_territorial": "102,680 km² [2024]",
+    "populacao_censo_2022": "16.929 pessoas [2022]",
+    "densidade_demografica": "164,87 hab/km² [2022]",
+    "escolarizacao_6_14": "97,09 % [2022]",
+    "idhm": "0,645 [2010]",
+    "mortalidade_infantil": "23,26 óbitos por mil nascidos vivos [2023]",
+    "receita_bruta_2024": "120.365.573,69 R$ [2024]",
+    "despesa_bruta_2024": "110.654.038,81 R$ [2024]",
+    "pib_per_capita": "34.037,14 R$ [2023]",
+    "fonte": "IBGE Cidades e Estados / SIDRA"
+  },
+  "tce_rn": {
+    "fonte": "API Dados Abertos TCE-RN",
+    "identificador_unidade": 494,
+    "ano": 2025,
+    "licitacoes_qtd": 3171,
+    "licitacoes_processos_unicos": 34,
+    "licitacoes_lotes_unicos": 650,
+    "licitacoes_homologadas": 32,
+    "licitacoes_em_andamento": 2,
+    "licitacoes_valor_total_orcado_unico": 51734003.16,
+    "licitacoes_valor_total_orcado": 9155150325.5,
+    "contratos_qtd": 38,
+    "contratos_valor_total": 20360873.32,
+    "receita_prevista": 166602354.0,
+    "receita_realizada": 141280826.96,
+    "despesa_dotacao_atualizada": 144759762.0,
+    "despesa_empenhada": 123123518.45,
+    "despesa_liquidada": 122717790.58,
+    "despesa_paga": 122326208.55
+  },
+  "topsolutions": {
+    "fonte": "TopSolutions Dados Abertos Prefeitura",
+    "ano": 2025,
+    "orcamento_registros": 1757,
+    "orcamento_inicial_total": 137422762.0,
+    "orcamento_atualizado_total": 0.0,
+    "orcamento_disponivel_total": 19809006.26,
+    "emendas_qtd": 199,
+    "emendas_previsto_total": 318846209.0,
+    "emendas_realizado_total": 237222193.31,
+    "emendas_pago_total": 1715258.44,
+    "emendas_top_autorias": [
+      {
+        "autoria": "ZENAIDE MAIA",
+        "quantidade": 180
+      },
+      {
+        "autoria": "GENERAL GIRÃO",
+        "quantidade": 8
+      },
+      {
+        "autoria": "TOMBA FARIAS",
+        "quantidade": 6
+      },
+      {
+        "autoria": "BENES LEOCADIO",
+        "quantidade": 2
+      },
+      {
+        "autoria": "ROGERIO MARINHO",
+        "quantidade": 2
+      }
+    ]
+  },
+  "topsolutions_operacionais": {
+    "diarias": {
+      "ok": false,
+      "status_code": 400,
+      "error_code": "DIA001",
+      "count": 0,
+      "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/diaria/diariaasync?dtInicio=01%2F01%2F2025&dtFim=31%2F12%2F2025",
+      "resolved_params": {},
+      "attempts": [
+        {
+          "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/diaria/diariaasync",
+          "ok": false,
+          "status_code": 400,
+          "error_code": "DIA001",
+          "count": 0,
+          "params": {}
+        },
+        {
+          "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/diaria/diariaasync?ano=2025",
+          "ok": false,
+          "status_code": 400,
+          "error_code": "DIA001",
+          "count": 0,
+          "params": {
+            "ano": 2025
+          }
+        },
+        {
+          "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/diaria/diariaasync?exercicio=2025",
+          "ok": false,
+          "status_code": 400,
+          "error_code": "DIA001",
+          "count": 0,
+          "params": {
+            "exercicio": 2025
+          }
+        },
+        {
+          "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/diaria/diariaasync?numExercicio=2025",
+          "ok": false,
+          "status_code": 400,
+          "error_code": "DIA001",
+          "count": 0,
+          "params": {
+            "numExercicio": 2025
+          }
+        },
+        {
+          "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/diaria/diariaasync?mesIni=1&mesFim=12&numExercicio=2025",
+          "ok": false,
+          "status_code": 400,
+          "error_code": "DIA001",
+          "count": 0,
+          "params": {
+            "mesIni": 1,
+            "mesFim": 12,
+            "numExercicio": 2025
+          }
+        },
+        {
+          "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/diaria/diariaasync?dataInicio=01%2F01%2F2025&dataFim=31%2F12%2F2025",
+          "ok": false,
+          "status_code": 400,
+          "error_code": "DIA001",
+          "count": 0,
+          "params": {
+            "dataInicio": "01/01/2025",
+            "dataFim": "31/12/2025"
+          }
+        },
+        {
+          "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/diaria/diariaasync?dtInicio=01%2F01%2F2025&dtFim=31%2F12%2F2025",
+          "ok": false,
+          "status_code": 400,
+          "error_code": "DIA001",
+          "count": 0,
+          "params": {
+            "dtInicio": "01/01/2025",
+            "dtFim": "31/12/2025"
+          }
+        }
+      ]
+    },
+    "obras": {
+      "ok": false,
+      "status_code": 400,
+      "error_code": "OBRA001",
+      "count": 0,
+      "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/obra/ObraAsync?strExercicio=2025",
+      "resolved_params": {},
+      "attempts": [
+        {
+          "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/obra/ObraAsync",
+          "ok": false,
+          "status_code": 400,
+          "error_code": "OBRA001",
+          "count": 0,
+          "params": {}
+        },
+        {
+          "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/obra/ObraAsync?ano=2025",
+          "ok": false,
+          "status_code": 400,
+          "error_code": "OBRA001",
+          "count": 0,
+          "params": {
+            "ano": 2025
+          }
+        },
+        {
+          "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/obra/ObraAsync?exercicio=2025",
+          "ok": false,
+          "status_code": 400,
+          "error_code": "OBRA001",
+          "count": 0,
+          "params": {
+            "exercicio": 2025
+          }
+        },
+        {
+          "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/obra/ObraAsync?numExercicio=2025",
+          "ok": false,
+          "status_code": 400,
+          "error_code": "OBRA001",
+          "count": 0,
+          "params": {
+            "numExercicio": 2025
+          }
+        },
+        {
+          "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/obra/ObraAsync?dataInicio=01%2F01%2F2025&dataFim=31%2F12%2F2025",
+          "ok": false,
+          "status_code": 400,
+          "error_code": "OBRA001",
+          "count": 0,
+          "params": {
+            "dataInicio": "01/01/2025",
+            "dataFim": "31/12/2025"
+          }
+        },
+        {
+          "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/obra/ObraAsync?dtInicio=01%2F01%2F2025&dtFim=31%2F12%2F2025",
+          "ok": false,
+          "status_code": 400,
+          "error_code": "OBRA001",
+          "count": 0,
+          "params": {
+            "dtInicio": "01/01/2025",
+            "dtFim": "31/12/2025"
+          }
+        },
+        {
+          "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/obra/ObraAsync?strExercicio=2025",
+          "ok": false,
+          "status_code": 400,
+          "error_code": "OBRA001",
+          "count": 0,
+          "params": {
+            "strExercicio": 2025
+          }
+        }
+      ]
+    },
+    "pca": {
+      "ok": false,
+      "status_code": 400,
+      "error_code": "PCA001",
+      "count": 0,
+      "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/planocontratacaoanual/planocontratacaoanualasync?dtInicio=01%2F01%2F2025&dtFim=31%2F12%2F2025",
+      "resolved_params": {},
+      "attempts": [
+        {
+          "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/planocontratacaoanual/planocontratacaoanualasync",
+          "ok": false,
+          "status_code": 400,
+          "error_code": "PCA001",
+          "count": 0,
+          "params": {}
+        },
+        {
+          "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/planocontratacaoanual/planocontratacaoanualasync?ano=2025",
+          "ok": false,
+          "status_code": 400,
+          "error_code": "PCA001",
+          "count": 0,
+          "params": {
+            "ano": 2025
+          }
+        },
+        {
+          "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/planocontratacaoanual/planocontratacaoanualasync?exercicio=2025",
+          "ok": false,
+          "status_code": 400,
+          "error_code": "PCA001",
+          "count": 0,
+          "params": {
+            "exercicio": 2025
+          }
+        },
+        {
+          "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/planocontratacaoanual/planocontratacaoanualasync?numExercicio=2025",
+          "ok": false,
+          "status_code": 400,
+          "error_code": "PCA001",
+          "count": 0,
+          "params": {
+            "numExercicio": 2025
+          }
+        },
+        {
+          "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/planocontratacaoanual/planocontratacaoanualasync?strExercicio=2025",
+          "ok": false,
+          "status_code": 400,
+          "error_code": "PCA001",
+          "count": 0,
+          "params": {
+            "strExercicio": 2025
+          }
+        },
+        {
+          "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/planocontratacaoanual/planocontratacaoanualasync?dataInicio=01%2F01%2F2025&dataFim=31%2F12%2F2025",
+          "ok": false,
+          "status_code": 400,
+          "error_code": "PCA001",
+          "count": 0,
+          "params": {
+            "dataInicio": "01/01/2025",
+            "dataFim": "31/12/2025"
+          }
+        },
+        {
+          "url": "https://dadosabertos.topsolutionsrn.com.br/pmtibausulrn/planocontratacaoanual/planocontratacaoanualasync?dtInicio=01%2F01%2F2025&dtFim=31%2F12%2F2025",
+          "ok": false,
+          "status_code": 400,
+          "error_code": "PCA001",
+          "count": 0,
+          "params": {
+            "dtInicio": "01/01/2025",
+            "dtFim": "31/12/2025"
+          }
+        }
+      ]
+    },
+    "ano": 2025,
+    "fonte": "TopSolutions Dados Abertos Prefeitura"
+  }
+}

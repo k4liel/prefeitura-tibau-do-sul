@@ -22,14 +22,24 @@ from apps.monitoramento.services import metricas_jobs
 from apps.pessoal.models import Servidor
 
 
+_BACKEND_DIR = Path(__file__).resolve().parents[2]
+
+
+def _find_data_file(filename):
+    """Look in backend/seed_data/ first (production), then project-root data/exports/ (local)."""
+    candidates = [
+        _BACKEND_DIR / "seed_data" / filename,
+        _BACKEND_DIR.parent / "data" / "exports" / filename,
+    ]
+    for path in candidates:
+        if path.exists():
+            return path
+    return None
+
+
 def load_municipio_contexto():
-    file_path = (
-        Path(__file__).resolve().parents[3]
-        / "data"
-        / "exports"
-        / "municipio-contexto.json"
-    )
-    if not file_path.exists():
+    file_path = _find_data_file("municipio-contexto.json")
+    if file_path is None:
         return {}
     try:
         return json.loads(file_path.read_text(encoding="utf-8"))
@@ -38,8 +48,8 @@ def load_municipio_contexto():
 
 
 def load_export_data(filename):
-    file_path = Path(__file__).resolve().parents[3] / "data" / "exports" / filename
-    if not file_path.exists():
+    file_path = _find_data_file(filename)
+    if file_path is None:
         return []
     try:
         payload = json.loads(file_path.read_text(encoding="utf-8"))
@@ -49,8 +59,8 @@ def load_export_data(filename):
 
 
 def load_export_csv(filename):
-    file_path = Path(__file__).resolve().parents[3] / "data" / "exports" / filename
-    if not file_path.exists():
+    file_path = _find_data_file(filename)
+    if file_path is None:
         return []
     try:
         with file_path.open("r", encoding="utf-8", newline="") as handle:
@@ -265,7 +275,7 @@ class GovernancaView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["secretarias"] = Secretaria.objects.order_by("nome")
+        context["secretarias"] = Secretaria.objects.exclude(gestor__isnull=True).exclude(gestor="").order_by("nome")
         return context
 
 
@@ -792,6 +802,7 @@ class HierarquiaOrganizacionalView(TemplateView):
                 "servidores_sem_vinculo": servidores_sem_vinculo,
                 "resumo": {
                     "total_secretarias": len(secretarias),
+                    "total_com_gestor": sum(1 for s in secretarias if s.gestor),
                     "secretarias_com_servidor": len(hierarchy_rows),
                     "total_servidores": len(servidores),
                     "servidores_sem_vinculo": len(servidores_sem_vinculo),
