@@ -671,34 +671,175 @@
       margin-bottom: 12px;
     }
 
+    /* ─── Mobile menu toggle ─── */
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 1001;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      background: linear-gradient(180deg, var(--brand-2), var(--brand));
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      align-items: center;
+      justify-content: center;
+    }
+    .menu-toggle span,
+    .menu-toggle span::before,
+    .menu-toggle span::after {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: all 250ms ease;
+      position: relative;
+    }
+    .menu-toggle span::before,
+    .menu-toggle span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 20px;
+    }
+    .menu-toggle span::before { top: -6px; }
+    .menu-toggle span::after { top: 6px; }
+    .menu-toggle.active span { background: transparent; }
+    .menu-toggle.active span::before { top: 0; transform: rotate(45deg); }
+    .menu-toggle.active span::after { top: 0; transform: rotate(-45deg); }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 250ms ease;
+    }
+    .sidebar-overlay.visible { opacity: 1; }
+
+    /* ─── Mobile top bar ─── */
+    .mobile-topbar {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px 10px 60px;
+      background: linear-gradient(170deg, #061e30, #0b3a56);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .mobile-topbar img {
+      height: 36px;
+      width: auto;
+      filter: brightness(1.05);
+    }
+
+    /* ─── Table scroll hint ─── */
+    .table-wrap { position: relative; -webkit-overflow-scrolling: touch; }
+    .table-wrap::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 24px;
+      background: linear-gradient(to left, rgba(255,255,255,0.9), transparent);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .table-wrap.has-scroll::after { opacity: 1; }
+
     /* ─── Responsive ─── */
     @media (max-width: 1200px) {
       .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
+
     @media (max-width: 1080px) {
+      .menu-toggle { display: flex; }
+      .mobile-topbar { display: flex; }
       .layout { grid-template-columns: 1fr; }
       .sidebar {
-        position: static;
-        max-height: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 280px;
+        max-height: 100vh;
+        z-index: 1000;
+        transform: translateX(-100%);
+        transition: transform 300ms ease;
       }
-      .brand { text-align: center; }
-      .brand-logo { margin: 0 auto 10px; }
+      .sidebar.open { transform: translateX(0); }
       .main { padding: 20px 16px 32px; }
       .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      input, select { padding: 11px 12px; font-size: 16px; }
+      button, .btn { padding: 11px 18px; min-height: 44px; }
+      .link-btn { padding: 10px 14px; min-height: 44px; }
+      .nav a { padding: 10px 12px; min-height: 44px; }
+      .pagination a, .pagination span { min-width: 40px; height: 40px; }
     }
-    @media (max-width: 640px) {
-      .main { padding: 14px 12px 24px; }
-      .grid, .grid-3, .grid-2 { grid-template-columns: 1fr; }
-      .filter-grid { grid-template-columns: 1fr; }
+
+    @media (max-width: 768px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .main { padding: 16px 14px 28px; }
       .page-intro h1 { font-size: 22px; }
+      .page-intro p { font-size: 13px; }
+      .panel { padding: 16px; border-radius: var(--radius-sm); }
+      .panel h2 { font-size: 15px; margin-bottom: 12px; }
+      .kpi .v { font-size: 20px; }
+      .kpi .label { font-size: 11px; }
+      .chart-row { grid-template-columns: 1fr 1.5fr auto; gap: 8px; }
+      .chart-label { font-size: 12px; }
+      .chart-value { font-size: 12px; min-width: 80px; }
+      .export-bar { flex-wrap: wrap; }
+      .split { gap: 8px; }
+      th, td { padding: 8px 10px; font-size: 12px; }
+    }
+
+    @media (max-width: 640px) {
+      .main { padding: 14px 10px 24px; }
+      .grid, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      .filter-grid { grid-template-columns: 1fr; gap: 8px; }
+      .page-intro h1 { font-size: 20px; }
+      .page-intro { margin-bottom: 14px; padding-bottom: 12px; }
+      .kpi { padding: 14px; }
       .kpi .v { font-size: 18px; }
-      .chart-row { grid-template-columns: 1fr; gap: 4px; }
+      .chart-row { grid-template-columns: 1fr; gap: 2px; }
+      .chart-label { font-size: 12px; }
+      .chart-value { text-align: left; min-width: auto; font-size: 13px; }
+      .chart-track { height: 10px; }
+      .insights-box, .riscos-box { padding: 14px 16px; }
+      .insights-box li, .riscos-box li { font-size: 12px; }
+      .pagination { flex-wrap: wrap; gap: 4px; }
+      .pagination .info { width: 100%; text-align: center; margin: 4px 0; }
+      .api-grid a { font-size: 11px; padding: 8px 10px; }
+      .export-bar { flex-direction: column; align-items: stretch; }
+      .link-btn { justify-content: center; }
+      .mobile-topbar { padding: 8px 12px 8px 56px; }
+      .mobile-topbar img { height: 30px; }
+      .menu-toggle { top: 10px; left: 10px; width: 40px; height: 40px; }
+    }
+
+    @media (max-width: 400px) {
+      .main { padding: 12px 8px 20px; }
+      .panel { padding: 14px 12px; }
+      .page-intro h1 { font-size: 18px; }
+      .kpi .v { font-size: 16px; }
+      th, td { padding: 7px 8px; font-size: 11px; }
     }
 
     /* ─── Print ─── */
     @media print {
-      .sidebar, .skip-link, .filter-grid, button, .link-btn, .export-bar { display: none !important; }
+      .sidebar, .skip-link, .filter-grid, button, .link-btn, .export-bar,
+      .menu-toggle, .mobile-topbar, .sidebar-overlay { display: none !important; }
       .layout { grid-template-columns: 1fr; }
       .panel { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
     }
@@ -706,6 +847,15 @@
 </head>
 <body>
   <a href="#main-content" class="skip-link">Pular para conteudo principal</a>
+
+  <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+    <span></span>
+  </button>
+  <div class="sidebar-overlay"></div>
+
+  <div class="mobile-topbar">
+    <img src="{% static 'img/logo-prefeitura.png' %}" alt="Prefeitura de Tibau do Sul">
+  </div>
 
   <div class="layout">
     <aside class="sidebar">
@@ -807,6 +957,7 @@
 
   <script>
     (function(){
+      // Active nav highlighting
       var path = location.pathname;
       var links = document.querySelectorAll('.nav a[data-path]');
       links.forEach(function(a){
@@ -814,6 +965,42 @@
         if (path === dp || (dp !== '/' && path.startsWith(dp))) {
           a.classList.add('active');
         }
+      });
+
+      // Mobile menu toggle
+      var toggle = document.querySelector('.menu-toggle');
+      var sidebar = document.querySelector('.sidebar');
+      var overlay = document.querySelector('.sidebar-overlay');
+      function openMenu() {
+        sidebar.classList.add('open');
+        toggle.classList.add('active');
+        overlay.style.display = 'block';
+        toggle.setAttribute('aria-expanded', 'true');
+        requestAnimationFrame(function(){ overlay.classList.add('visible'); });
+      }
+      function closeMenu() {
+        sidebar.classList.remove('open');
+        toggle.classList.remove('active');
+        overlay.classList.remove('visible');
+        toggle.setAttribute('aria-expanded', 'false');
+        setTimeout(function(){ overlay.style.display = 'none'; }, 250);
+      }
+      if (toggle) {
+        toggle.addEventListener('click', function(){
+          sidebar.classList.contains('open') ? closeMenu() : openMenu();
+        });
+      }
+      if (overlay) {
+        overlay.addEventListener('click', closeMenu);
+      }
+
+      // Table scroll hints
+      document.querySelectorAll('.table-wrap').forEach(function(wrap){
+        function checkScroll(){
+          wrap.classList.toggle('has-scroll', wrap.scrollWidth > wrap.clientWidth + 2);
+        }
+        checkScroll();
+        window.addEventListener('resize', checkScroll);
       });
     })();
   </script>
