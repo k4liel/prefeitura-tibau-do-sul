@@ -89,15 +89,15 @@
       <tbody>
         {% for e in page_obj %}
         <tr>
-          <td class="hide-mobile">{{ e.numero|default:"-" }}</td>
-          <td class="cell-text">{{ e.autoria|default:"-" }}</td>
-          <td><span class="badge accent">{{ e.tipo|default:"-" }}</span></td>
-          <td><span class="badge">{{ e.origem_recurso|default:"-" }}</span></td>
-          <td class="cell-text">{{ e.objeto|default:"-"|truncatechars:120 }}</td>
-          <td class="hide-mobile">{{ e.funcao_governo|default:"-" }}</td>
-          <td class="num">{{ e.valor_previsto|currency_brl }}</td>
-          <td class="num">{{ e.valor_pago|currency_brl }}</td>
-          <td>{{ e.data_emenda|date:"d/m/Y"|default:"-" }}</td>
+          <td class="hide-mobile" data-label="Numero">{{ e.numero|default:"-" }}</td>
+          <td class="cell-text" data-label="Autoria">{{ e.autoria|default:"-" }}</td>
+          <td data-label="Tipo"><span class="badge accent">{{ e.tipo|default:"-" }}</span></td>
+          <td data-label="Origem"><span class="badge">{{ e.origem_recurso|default:"-" }}</span></td>
+          <td class="cell-text" data-label="Objeto">{{ e.objeto|default:"-"|truncatechars:120 }}</td>
+          <td class="hide-mobile" data-label="Funcao">{{ e.funcao_governo|default:"-" }}</td>
+          <td class="num" data-label="Valor Previsto">{{ e.valor_previsto|currency_brl }}</td>
+          <td class="num" data-label="Valor Pago">{{ e.valor_pago|currency_brl }}</td>
+          <td data-label="Data">{{ e.data_emenda|date:"d/m/Y"|default:"-" }}</td>
         </tr>
         {% empty %}
         <tr><td colspan="9">Sem dados de emendas disponiveis.</td></tr>

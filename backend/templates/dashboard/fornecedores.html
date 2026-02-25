@@ -75,9 +75,9 @@
       <tbody>
         {% for item in page_obj %}
         <tr>
-          <td>{{ item.nome }}</td>
-          <td>{{ item.cnpj|default:"-" }}</td>
-          <td class="num">{{ item.valor_total|currency_brl }}</td>
+          <td data-label="Nome">{{ item.nome }}</td>
+          <td data-label="CNPJ">{{ item.cnpj|default:"-" }}</td>
+          <td class="num" data-label="Valor Total">{{ item.valor_total|currency_brl }}</td>
         </tr>
         {% empty %}
         <tr><td colspan="3">Nenhum fornecedor encontrado.</td></tr>

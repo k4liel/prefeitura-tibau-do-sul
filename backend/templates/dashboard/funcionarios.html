@@ -41,13 +41,13 @@
       <tbody>
         {% for item in page_obj %}
         <tr>
-          <td class="hide-mobile">{{ item.matricula|default:"-" }}</td>
-          <td class="cell-text">{{ item.nome }}</td>
-          <td class="cell-text">{{ item.cargo|default:"-" }}</td>
-          <td class="cell-text">{{ item.orgao }}</td>
-          <td>{{ item.vinculo }}</td>
-          <td class="num">R$ {{ item.valor_bruto|floatformat:2 }}</td>
-          <td class="num">R$ {{ item.valor_liquido|floatformat:2 }}</td>
+          <td class="hide-mobile" data-label="Matricula">{{ item.matricula|default:"-" }}</td>
+          <td class="cell-text" data-label="Nome">{{ item.nome }}</td>
+          <td class="cell-text" data-label="Cargo">{{ item.cargo|default:"-" }}</td>
+          <td class="cell-text" data-label="Orgao">{{ item.orgao }}</td>
+          <td data-label="Vinculo">{{ item.vinculo }}</td>
+          <td class="num" data-label="Bruto">R$ {{ item.valor_bruto|floatformat:2 }}</td>
+          <td class="num" data-label="Liquido">R$ {{ item.valor_liquido|floatformat:2 }}</td>
         </tr>
         {% empty %}
         <tr><td colspan="7">Nenhum funcionario encontrado.</td></tr>

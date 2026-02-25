@@ -90,9 +90,9 @@
       <tbody>
         {% for r in receitas %}
         <tr>
-          <td>{{ r.ano }}</td>
-          <td class="num">{{ r.previsao|currency_brl }}</td>
-          <td class="num">{{ r.arrecadacao|currency_brl }}</td>
+          <td data-label="Ano">{{ r.ano }}</td>
+          <td class="num" data-label="Previsao">{{ r.previsao|currency_brl }}</td>
+          <td class="num" data-label="Arrecadacao">{{ r.arrecadacao|currency_brl }}</td>
         </tr>
         {% empty %}
         <tr><td colspan="3">Nenhum dado de receita.</td></tr>
@@ -121,11 +121,11 @@
       <tbody>
         {% for d in despesas %}
         <tr>
-          <td class="cell-text">{{ d.secretaria }}</td>
-          <td class="num">{{ d.orcamento|currency_brl }}</td>
-          <td class="num hide-mobile">{{ d.empenhado|currency_brl }}</td>
-          <td class="num hide-mobile">{{ d.liquidado|currency_brl }}</td>
-          <td class="num">{{ d.pago|currency_brl }}</td>
+          <td class="cell-text" data-label="Secretaria">{{ d.secretaria }}</td>
+          <td class="num" data-label="Orcamento">{{ d.orcamento|currency_brl }}</td>
+          <td class="num hide-mobile" data-label="Empenhado">{{ d.empenhado|currency_brl }}</td>
+          <td class="num hide-mobile" data-label="Liquidado">{{ d.liquidado|currency_brl }}</td>
+          <td class="num" data-label="Pago">{{ d.pago|currency_brl }}</td>
         </tr>
         {% empty %}
         <tr><td colspan="5">Nenhum dado de despesa.</td></tr>

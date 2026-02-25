@@ -43,18 +43,18 @@
   <h2>Prefeito, vice e secretarios</h2>
   <div class="table-wrap">
     <table>
-      <thead><tr><th>Cargo</th><th>Nome</th><th>Orgao</th><th>Funcao</th><th>Vinculo</th><th>Bruto</th><th>Liquido</th><th>Fonte</th></tr></thead>
+      <thead><tr><th>Cargo</th><th>Nome</th><th class="hide-mobile">Orgao</th><th class="hide-mobile">Funcao</th><th class="hide-mobile">Vinculo</th><th>Bruto</th><th>Liquido</th><th class="hide-mobile">Fonte</th></tr></thead>
       <tbody>
         {% for item in rows_estrategicos %}
         <tr>
-          <td><span class="badge">{{ item.cargo }}</span></td>
-          <td>{{ item.nome }}</td>
-          <td>{{ item.orgao }}</td>
-          <td>{{ item.funcao|default:"-" }}</td>
-          <td>{{ item.vinculo }}</td>
-          <td class="num">{% if item.valor_bruto is not None %}{{ item.valor_bruto|currency_brl }}{% else %}-{% endif %}</td>
-          <td class="num">{% if item.valor_liquido is not None %}{{ item.valor_liquido|currency_brl }}{% else %}-{% endif %}</td>
-          <td>
+          <td data-label="Cargo"><span class="badge">{{ item.cargo }}</span></td>
+          <td class="cell-text" data-label="Nome">{{ item.nome }}</td>
+          <td class="cell-text hide-mobile" data-label="Orgao">{{ item.orgao }}</td>
+          <td class="hide-mobile" data-label="Funcao">{{ item.funcao|default:"-" }}</td>
+          <td class="hide-mobile" data-label="Vinculo">{{ item.vinculo }}</td>
+          <td class="num" data-label="Bruto">{% if item.valor_bruto is not None %}{{ item.valor_bruto|currency_brl }}{% else %}-{% endif %}</td>
+          <td class="num" data-label="Liquido">{% if item.valor_liquido is not None %}{{ item.valor_liquido|currency_brl }}{% else %}-{% endif %}</td>
+          <td class="hide-mobile" data-label="Fonte">
             {% if item.fonte_salario == 'folha' %}
             <span class="badge success">folha</span>
             {% else %}
@@ -74,18 +74,18 @@
   <h2>Vereadores</h2>
   <div class="table-wrap">
     <table>
-      <thead><tr><th>Cargo</th><th>Nome</th><th>Orgao</th><th>Funcao</th><th>Vinculo</th><th>Bruto</th><th>Liquido</th><th>Fonte</th></tr></thead>
+      <thead><tr><th>Cargo</th><th>Nome</th><th class="hide-mobile">Orgao</th><th class="hide-mobile">Funcao</th><th class="hide-mobile">Vinculo</th><th>Bruto</th><th>Liquido</th><th class="hide-mobile">Fonte</th></tr></thead>
       <tbody>
         {% for item in rows_vereadores %}
         <tr>
-          <td><span class="badge">{{ item.cargo }}</span></td>
-          <td>{{ item.nome }}</td>
-          <td>{{ item.orgao }}</td>
-          <td>{{ item.funcao|default:"-" }}</td>
-          <td>{{ item.vinculo }}</td>
-          <td class="num">{% if item.valor_bruto is not None %}{{ item.valor_bruto|currency_brl }}{% else %}-{% endif %}</td>
-          <td class="num">{% if item.valor_liquido is not None %}{{ item.valor_liquido|currency_brl }}{% else %}-{% endif %}</td>
-          <td>
+          <td data-label="Cargo"><span class="badge">{{ item.cargo }}</span></td>
+          <td class="cell-text" data-label="Nome">{{ item.nome }}</td>
+          <td class="cell-text hide-mobile" data-label="Orgao">{{ item.orgao }}</td>
+          <td class="hide-mobile" data-label="Funcao">{{ item.funcao|default:"-" }}</td>
+          <td class="hide-mobile" data-label="Vinculo">{{ item.vinculo }}</td>
+          <td class="num" data-label="Bruto">{% if item.valor_bruto is not None %}{{ item.valor_bruto|currency_brl }}{% else %}-{% endif %}</td>
+          <td class="num" data-label="Liquido">{% if item.valor_liquido is not None %}{{ item.valor_liquido|currency_brl }}{% else %}-{% endif %}</td>
+          <td class="hide-mobile" data-label="Fonte">
             {% if item.fonte_salario == 'folha' %}
             <span class="badge success">folha</span>
             {% else %}
@@ -105,15 +105,15 @@
   <h2>Todos os servidores</h2>
   <div class="table-wrap">
     <table>
-      <thead><tr><th>Nome</th><th>Orgao</th><th>Vinculo</th><th>Bruto</th><th>Liquido</th></tr></thead>
+      <thead><tr><th>Nome</th><th class="hide-mobile">Orgao</th><th class="hide-mobile">Vinculo</th><th>Bruto</th><th>Liquido</th></tr></thead>
       <tbody>
         {% for item in rows_servidores %}
         <tr>
-          <td>{{ item.nome }}</td>
-          <td>{{ item.orgao }}</td>
-          <td>{{ item.vinculo }}</td>
-          <td class="num">{{ item.valor_bruto|currency_brl }}</td>
-          <td class="num">{{ item.valor_liquido|currency_brl }}</td>
+          <td class="cell-text" data-label="Nome">{{ item.nome }}</td>
+          <td class="cell-text hide-mobile" data-label="Orgao">{{ item.orgao }}</td>
+          <td class="hide-mobile" data-label="Vinculo">{{ item.vinculo }}</td>
+          <td class="num" data-label="Bruto">{{ item.valor_bruto|currency_brl }}</td>
+          <td class="num" data-label="Liquido">{{ item.valor_liquido|currency_brl }}</td>
         </tr>
         {% empty %}
         <tr><td colspan="5">Sem servidores na base.</td></tr>

@@ -35,11 +35,11 @@
       <tbody>
         {% for item in contratos_tech %}
         <tr>
-          <td>{{ item.numero }}</td>
-          <td class="cell-text">{{ item.empresa }}</td>
-          <td>{{ item.modalidade }}</td>
-          <td class="num">{{ item.valor|currency_brl }}</td>
-          <td class="cell-text">{{ item.objeto|truncatechars:140 }}</td>
+          <td data-label="Numero">{{ item.numero }}</td>
+          <td class="cell-text" data-label="Empresa">{{ item.empresa }}</td>
+          <td data-label="Modalidade">{{ item.modalidade }}</td>
+          <td class="num" data-label="Valor">{{ item.valor|currency_brl }}</td>
+          <td class="cell-text" data-label="Objeto">{{ item.objeto|truncatechars:140 }}</td>
         </tr>
         {% empty %}
         <tr><td colspan="5">Nenhum contrato de tecnologia encontrado.</td></tr>

@@ -45,9 +45,9 @@
       <tbody>
         {% for item in page_obj %}
         <tr>
-          <td><span class="badge">{{ item.codigo }}</span></td>
-          <td class="cell-text">{{ item.titulo }}</td>
-          <td>
+          <td data-label="Codigo"><span class="badge">{{ item.codigo }}</span></td>
+          <td class="cell-text" data-label="Titulo">{{ item.titulo }}</td>
+          <td data-label="Severidade">
             {% if item.severidade|lower == 'alta' %}
             <span class="badge danger">{{ item.severidade }}</span>
             {% elif item.severidade|lower == 'media' %}
@@ -56,8 +56,8 @@
             <span class="badge success">{{ item.severidade }}</span>
             {% endif %}
           </td>
-          <td class="hide-mobile">{{ item.criado_em }}</td>
-          <td class="cell-text">{{ item.detalhes|truncatechars:140 }}</td>
+          <td class="hide-mobile" data-label="Criado em">{{ item.criado_em }}</td>
+          <td class="cell-text" data-label="Detalhes">{{ item.detalhes|truncatechars:140 }}</td>
         </tr>
         {% empty %}
         <tr><td colspan="5">Nenhum alerta encontrado.</td></tr>

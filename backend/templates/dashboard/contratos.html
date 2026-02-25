@@ -83,20 +83,20 @@
       <tbody>
         {% for item in page_obj %}
         <tr>
-          <td>{{ item.numero }}</td>
-          <td class="cell-text">{{ item.empresa }}</td>
-          <td class="hide-mobile">{{ item.cnpj|default:"-" }}</td>
-          <td><span class="badge">{{ item.modalidade }}</span></td>
-          <td class="num">{{ item.valor|currency_brl }}</td>
-          <td>{{ item.data_assinatura|date:"d/m/Y"|default:"-" }}</td>
-          <td>
+          <td data-label="Numero">{{ item.numero }}</td>
+          <td class="cell-text" data-label="Empresa">{{ item.empresa }}</td>
+          <td class="hide-mobile" data-label="CNPJ">{{ item.cnpj|default:"-" }}</td>
+          <td data-label="Modalidade"><span class="badge">{{ item.modalidade }}</span></td>
+          <td class="num" data-label="Valor">{{ item.valor|currency_brl }}</td>
+          <td data-label="Data Assinatura">{{ item.data_assinatura|date:"d/m/Y"|default:"-" }}</td>
+          <td data-label="Ativo">
             {% if item.ativo %}
             <span class="badge success">Ativo</span>
             {% else %}
             <span class="badge danger">Encerrado</span>
             {% endif %}
           </td>
-          <td class="cell-text">{{ item.objeto|truncatechars:120 }}</td>
+          <td class="cell-text" data-label="Objeto">{{ item.objeto|truncatechars:120 }}</td>
         </tr>
         {% empty %}
         <tr><td colspan="8">Nenhum contrato encontrado.</td></tr>

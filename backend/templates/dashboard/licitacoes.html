@@ -93,9 +93,9 @@
       <tbody>
         {% for item in page_obj %}
         <tr>
-          <td class="cell-text">{{ item.certame }}</td>
-          <td><span class="badge">{{ item.modalidade }}</span></td>
-          <td>
+          <td class="cell-text" data-label="Certame">{{ item.certame }}</td>
+          <td data-label="Modalidade"><span class="badge">{{ item.modalidade }}</span></td>
+          <td data-label="Status">
             {% if item.status == "Homologada" or item.status == "Concluida" %}
             <span class="badge success">{{ item.status }}</span>
             {% elif item.status == "Cancelada" or item.status == "Revogada" or item.status == "Deserta" %}
@@ -106,9 +106,9 @@
             <span class="badge">{{ item.status|default:"-" }}</span>
             {% endif %}
           </td>
-          <td class="num">{{ item.valor|currency_brl }}</td>
-          <td class="cell-text">{{ item.objeto|truncatechars:140 }}</td>
-          <td class="hide-mobile">
+          <td class="num" data-label="Valor">{{ item.valor|currency_brl }}</td>
+          <td class="cell-text" data-label="Objeto">{{ item.objeto|truncatechars:140 }}</td>
+          <td class="hide-mobile" data-label="Edital">
             {% if item.link_edital %}
             <a href="{{ item.link_edital }}" target="_blank" rel="noreferrer" title="Ver edital">&#128196;</a>
             {% else %}

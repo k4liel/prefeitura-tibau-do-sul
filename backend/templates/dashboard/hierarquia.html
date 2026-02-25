@@ -38,8 +38,8 @@
       <tbody>
         {% for nome, qtd in resumo_vinculos %}
         <tr>
-          <td>{{ nome }}</td>
-          <td class="num">{{ qtd }}</td>
+          <td class="cell-text" data-label="Vinculo">{{ nome }}</td>
+          <td class="num" data-label="Quantidade">{{ qtd }}</td>
         </tr>
         {% empty %}
         <tr><td colspan="2">Sem dados de vinculo.</td></tr>
@@ -60,14 +60,14 @@
     </summary>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Servidor</th><th>Orgao de origem</th><th>Vinculo</th><th>Matricula</th></tr></thead>
+        <thead><tr><th>Servidor</th><th>Orgao de origem</th><th class="hide-mobile">Vinculo</th><th class="hide-mobile">Matricula</th></tr></thead>
         <tbody>
           {% for servidor in bloco.servidores %}
           <tr>
-            <td>{{ servidor.nome }}</td>
-            <td>{{ servidor.orgao|default:"-" }}</td>
-            <td>{{ servidor.vinculo|default:"-" }}</td>
-            <td>{{ servidor.matricula|default:"-" }}</td>
+            <td class="cell-text" data-label="Servidor">{{ servidor.nome }}</td>
+            <td class="cell-text" data-label="Orgao">{{ servidor.orgao|default:"-" }}</td>
+            <td class="hide-mobile" data-label="Vinculo">{{ servidor.vinculo|default:"-" }}</td>
+            <td class="hide-mobile" data-label="Matricula">{{ servidor.matricula|default:"-" }}</td>
           </tr>
           {% endfor %}
         </tbody>
@@ -87,14 +87,14 @@
   </div>
   <div class="table-wrap">
     <table>
-      <thead><tr><th>Servidor</th><th>Orgao informado</th><th>Vinculo</th><th>Matricula</th></tr></thead>
+      <thead><tr><th>Servidor</th><th>Orgao informado</th><th class="hide-mobile">Vinculo</th><th class="hide-mobile">Matricula</th></tr></thead>
       <tbody>
         {% for servidor in servidores_sem_vinculo %}
         <tr>
-          <td>{{ servidor.nome }}</td>
-          <td>{{ servidor.orgao|default:"-" }}</td>
-          <td>{{ servidor.vinculo|default:"-" }}</td>
-          <td>{{ servidor.matricula|default:"-" }}</td>
+          <td class="cell-text" data-label="Servidor">{{ servidor.nome }}</td>
+          <td class="cell-text" data-label="Orgao">{{ servidor.orgao|default:"-" }}</td>
+          <td class="hide-mobile" data-label="Vinculo">{{ servidor.vinculo|default:"-" }}</td>
+          <td class="hide-mobile" data-label="Matricula">{{ servidor.matricula|default:"-" }}</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -115,8 +115,8 @@
       <tbody>
         {% for sec in secretarias_sem_servidor %}
         <tr>
-          <td>{{ sec.nome }}</td>
-          <td>{{ sec.gestor|default:"-" }}</td>
+          <td class="cell-text" data-label="Secretaria">{{ sec.nome }}</td>
+          <td class="cell-text" data-label="Gestor">{{ sec.gestor|default:"-" }}</td>
         </tr>
         {% endfor %}
       </tbody>

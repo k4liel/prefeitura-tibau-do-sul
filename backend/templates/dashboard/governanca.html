@@ -21,8 +21,8 @@
       <tbody>
         {% for sec in secretarias %}
         <tr>
-          <td>{{ sec.nome }}</td>
-          <td>
+          <td data-label="Secretaria">{{ sec.nome }}</td>
+          <td data-label="Gestor(a)">
             {% if sec.gestor %}
             <strong>{{ sec.gestor }}</strong>
             {% else %}

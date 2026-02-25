@@ -456,7 +456,6 @@
       font-size: 13px;
       white-space: nowrap;
     }
-    /* Allow wrapping on description / long-text columns */
     td.cell-text {
       white-space: normal;
       min-width: 180px;
@@ -483,8 +482,6 @@
     tr:hover td { background: var(--brand-light); }
     .num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 500; }
     .subtle { color: var(--muted); }
-    /* Hide columns marked as desktop-only on mobile */
-    .hide-mobile { /* toggled via media query */ }
 
     /* ─── Badges ─── */
     .badge {
@@ -775,9 +772,7 @@
       .layout { grid-template-columns: 1fr; }
       .sidebar {
         position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
+        top: 0; left: 0; bottom: 0;
         width: 280px;
         max-height: 100vh;
         z-index: 1000;
@@ -795,6 +790,7 @@
       .pagination a, .pagination span { min-width: 40px; height: 40px; }
     }
 
+    /* ─── Mobile: Table → Card layout ─── */
     @media (max-width: 768px) {
       .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -810,24 +806,82 @@
       .chart-value { font-size: 12px; min-width: 80px; }
       .export-bar { flex-wrap: wrap; }
       .split { gap: 8px; }
-      th, td { padding: 8px 10px; font-size: 12px; }
-      /* Allow text wrap on mobile tables for readability */
-      th, td { white-space: normal; word-break: break-word; }
-      .num { white-space: nowrap; word-break: normal; }
-      .badge { white-space: nowrap; }
-      td.cell-text { min-width: 140px; max-width: 260px; }
-      .hide-mobile { display: none; }
+
+      /* Transform tables into stacked cards */
+      .table-wrap { border: none; overflow-x: visible; }
+      .table-wrap::after { display: none; }
+      .table-wrap table,
+      .table-wrap thead,
+      .table-wrap tbody,
+      .table-wrap tr,
+      .table-wrap th,
+      .table-wrap td { display: block; width: 100%; }
+      .table-wrap thead { display: none; }
+      .table-wrap tbody tr {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        margin-bottom: 12px;
+        padding: 14px 16px;
+        box-shadow: var(--shadow-sm);
+      }
+      .table-wrap td {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 7px 0;
+        border-bottom: 1px solid var(--line-soft);
+        white-space: normal;
+        word-break: break-word;
+        text-align: right;
+        background: transparent;
+        font-size: 13px;
+      }
+      .table-wrap tr:nth-child(even) td { background: transparent; }
+      .table-wrap tr:hover td { background: transparent; }
+      .table-wrap td:last-child { border-bottom: none; }
+      .table-wrap td::before {
+        content: attr(data-label);
+        font-weight: 700;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        color: var(--muted);
+        text-align: left;
+        flex-shrink: 0;
+        min-width: 90px;
+        padding-top: 2px;
+      }
+      .table-wrap td.cell-text {
+        min-width: 0;
+        max-width: none;
+      }
+      .table-wrap td.num {
+        text-align: right;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .table-wrap td.hide-mobile { display: none; }
+      /* First visible td in card = highlight as card title */
+      .table-wrap td:first-child,
+      .table-wrap td.cell-text:first-of-type {
+        font-weight: 600;
+        font-size: 14px;
+        color: var(--brand);
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 10px;
+        margin-bottom: 4px;
+      }
     }
 
     @media (max-width: 640px) {
       .main { padding: 14px 10px 24px; }
-      .grid, .grid-3, .grid-2 { grid-template-columns: 1fr; }
       .filter-grid { grid-template-columns: 1fr; gap: 8px; }
       .page-intro h1 { font-size: 20px; }
       .page-intro { margin-bottom: 14px; padding-bottom: 12px; }
       .kpi { padding: 14px; }
       .kpi .v { font-size: 18px; }
-      /* KPI two-column layout on small phones */
       .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .grid-2 { grid-template-columns: 1fr; }
@@ -845,9 +899,9 @@
       .mobile-topbar { padding: 8px 12px 8px 56px; }
       .mobile-topbar img { height: 30px; }
       .menu-toggle { top: 10px; left: 10px; width: 40px; height: 40px; }
-      /* Compact table on very small screens */
-      th, td { padding: 7px 8px; font-size: 11px; }
-      td.cell-text { min-width: 120px; max-width: 200px; font-size: 11px; }
+      .table-wrap tbody tr { padding: 12px 14px; margin-bottom: 10px; }
+      .table-wrap td { font-size: 12px; gap: 8px; padding: 6px 0; }
+      .table-wrap td::before { font-size: 10px; min-width: 80px; }
     }
 
     @media (max-width: 400px) {
@@ -857,6 +911,7 @@
       .kpi .v { font-size: 16px; }
       .kpi .label { font-size: 10px; }
       .kpi { padding: 12px 10px; }
+      .table-wrap tbody tr { padding: 10px 12px; }
     }
 
     /* ─── Print ─── */
