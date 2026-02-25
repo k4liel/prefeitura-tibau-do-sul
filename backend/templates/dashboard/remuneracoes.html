@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load formatters %}
+
+{% block title %}Remuneracoes | Sistema Tibau do Sul{% endblock %}
+
+{% block content %}
+<header class="page-intro">
+  <h1>Remuneracoes de Pessoas</h1>
+  <p>Visao completa de remuneracao: prefeito, vice, secretarios, vereadores e demais servidores da folha.</p>
+</header>
+
+<section class="panel">
+  <div class="grid">
+    <article class="kpi">
+      <div class="label">Alta gestao mapeada</div>
+      <div class="v">{{ resumo.estrategicos }}</div>
+    </article>
+    <article class="kpi">
+      <div class="label">Vereadores mapeados</div>
+      <div class="v">{{ resumo.vereadores }}</div>
+    </article>
+    <article class="kpi accent">
+      <div class="label">Servidores na folha</div>
+      <div class="v">{{ resumo.servidores }}</div>
+    </article>
+    <article class="kpi success">
+      <div class="label">Total bruto da folha</div>
+      <div class="v">{{ resumo.total_bruto|currency_brl }}</div>
+      <div class="meta">Total liquido: {{ resumo.total_liquido|currency_brl }}</div>
+    </article>
+  </div>
+  <p class="subtle">
+    Fonte principal: {{ resumo.fonte_principal }}. Sem salario identificado: {{ resumo.estrategicos_sem_salario }} (alta gestao) e {{ resumo.vereadores_sem_salario }} (legislativo).
+  </p>
+  {% if referencias_legais %}
+  <p class="subtle">
+    Base legal: Lei 804/2023 (vereador {{ referencias_legais.lei_804.vereador|currency_brl }}, presidente {{ referencias_legais.lei_804.vereador_presidente|currency_brl }}) e Lei 805/2023 (prefeito {{ referencias_legais.lei_805.prefeito|currency_brl }}, vice {{ referencias_legais.lei_805.vice_prefeito|currency_brl }}, secretario {{ referencias_legais.lei_805.secretario|currency_brl }}).
+  </p>
+  {% endif %}
+</section>
+
+<section class="panel">
+  <h2>Prefeito, vice e secretarios</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Cargo</th><th>Nome</th><th>Orgao</th><th>Funcao</th><th>Vinculo</th><th>Bruto</th><th>Liquido</th><th>Fonte</th></tr></thead>
+      <tbody>
+        {% for item in rows_estrategicos %}
+        <tr>
+          <td><span class="badge">{{ item.cargo }}</span></td>
+          <td>{{ item.nome }}</td>
+          <td>{{ item.orgao }}</td>
+          <td>{{ item.funcao|default:"-" }}</td>
+          <td>{{ item.vinculo }}</td>
+          <td class="num">{% if item.valor_bruto is not None %}{{ item.valor_bruto|currency_brl }}{% else %}-{% endif %}</td>
+          <td class="num">{% if item.valor_liquido is not None %}{{ item.valor_liquido|currency_brl }}{% else %}-{% endif %}</td>
+          <td>
+            {% if item.fonte_salario == 'folha' %}
+            <span class="badge success">folha</span>
+            {% else %}
+            <span class="badge warning">{{ item.fonte_salario }}</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8">Sem registros estrategicos.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>Vereadores</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Cargo</th><th>Nome</th><th>Orgao</th><th>Funcao</th><th>Vinculo</th><th>Bruto</th><th>Liquido</th><th>Fonte</th></tr></thead>
+      <tbody>
+        {% for item in rows_vereadores %}
+        <tr>
+          <td><span class="badge">{{ item.cargo }}</span></td>
+          <td>{{ item.nome }}</td>
+          <td>{{ item.orgao }}</td>
+          <td>{{ item.funcao|default:"-" }}</td>
+          <td>{{ item.vinculo }}</td>
+          <td class="num">{% if item.valor_bruto is not None %}{{ item.valor_bruto|currency_brl }}{% else %}-{% endif %}</td>
+          <td class="num">{% if item.valor_liquido is not None %}{{ item.valor_liquido|currency_brl }}{% else %}-{% endif %}</td>
+          <td>
+            {% if item.fonte_salario == 'folha' %}
+            <span class="badge success">folha</span>
+            {% else %}
+            <span class="badge warning">{{ item.fonte_salario }}</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8">Sem vereadores cadastrados.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>Todos os servidores</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Nome</th><th>Orgao</th><th>Vinculo</th><th>Bruto</th><th>Liquido</th></tr></thead>
+      <tbody>
+        {% for item in rows_servidores %}
+        <tr>
+          <td>{{ item.nome }}</td>
+          <td>{{ item.orgao }}</td>
+          <td>{{ item.vinculo }}</td>
+          <td class="num">{{ item.valor_bruto|currency_brl }}</td>
+          <td class="num">{{ item.valor_liquido|currency_brl }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">Sem servidores na base.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

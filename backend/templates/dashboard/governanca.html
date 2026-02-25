@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Governanca | Sistema Tibau do Sul{% endblock %}
+
+{% block content %}
+<header class="page-intro">
+  <h1>Governanca</h1>
+  <p>Estrutura organizacional da prefeitura com secretarias e seus respectivos gestores.</p>
+</header>
+
+<section class="panel">
+  <h2>Secretarias</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Secretaria</th>
+          <th>Gestor(a)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for sec in secretarias %}
+        <tr>
+          <td>{{ sec.nome }}</td>
+          <td>
+            {% if sec.gestor %}
+            <strong>{{ sec.gestor }}</strong>
+            {% else %}
+            <span class="badge warning">Nao informado</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="2">Nenhuma secretaria carregada.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

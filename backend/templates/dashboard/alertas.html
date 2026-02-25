@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Alertas | Sistema Tibau do Sul{% endblock %}
+
+{% block content %}
+<header class="page-intro">
+  <h1>Alertas e Riscos</h1>
+  <p>Monitoramento automatizado de conformidade e indicadores criticos do municipio.</p>
+</header>
+
+<section class="panel">
+  <form method="get" class="filter-grid">
+    <div>
+      <label for="alertas-search" class="sr-only">Codigo, titulo, detalhes</label>
+      <input id="alertas-search" type="text" name="search" placeholder="Codigo, titulo, detalhes" value="{{ search }}">
+    </div>
+    <div>
+      <label for="alertas-severidade" class="sr-only">Severidade</label>
+      <select id="alertas-severidade" name="severidade">
+        <option value="">Todas severidades</option>
+        <option value="alta" {% if severidade == 'alta' %}selected{% endif %}>Alta</option>
+        <option value="media" {% if severidade == 'media' %}selected{% endif %}>Media</option>
+        <option value="baixa" {% if severidade == 'baixa' %}selected{% endif %}>Baixa</option>
+      </select>
+    </div>
+    <div>
+      <label for="alertas-ordering" class="sr-only">Ordenacao</label>
+      <select id="alertas-ordering" name="ordering">
+        <option value="-criado_em" {% if ordering == '-criado_em' %}selected{% endif %}>Mais recentes</option>
+        <option value="criado_em" {% if ordering == 'criado_em' %}selected{% endif %}>Mais antigos</option>
+        <option value="severidade" {% if ordering == 'severidade' %}selected{% endif %}>Severidade A-Z</option>
+        <option value="-severidade" {% if ordering == '-severidade' %}selected{% endif %}>Severidade Z-A</option>
+      </select>
+    </div>
+    <button type="submit">Filtrar</button>
+  </form>
+</section>
+
+<section class="panel">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Codigo</th><th>Titulo</th><th>Severidade</th><th>Criado em</th><th>Detalhes</th></tr>
+      </thead>
+      <tbody>
+        {% for item in page_obj %}
+        <tr>
+          <td><span class="badge">{{ item.codigo }}</span></td>
+          <td>{{ item.titulo }}</td>
+          <td>
+            {% if item.severidade|lower == 'alta' %}
+            <span class="badge danger">{{ item.severidade }}</span>
+            {% elif item.severidade|lower == 'media' %}
+            <span class="badge warning">{{ item.severidade }}</span>
+            {% else %}
+            <span class="badge success">{{ item.severidade }}</span>
+            {% endif %}
+          </td>
+          <td>{{ item.criado_em }}</td>
+          <td>{{ item.detalhes|truncatechars:140 }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">Nenhum alerta encontrado.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if page_obj.paginator.num_pages > 1 %}
+  <nav class="pagination">
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}&search={{ search }}&severidade={{ severidade }}&ordering={{ ordering }}">Anterior</a>
+    {% endif %}
+    <span class="info">Pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}&search={{ search }}&severidade={{ severidade }}&ordering={{ ordering }}">Proxima</a>
+    {% endif %}
+  </nav>
+  {% endif %}
+</section>
+{% endblock %}

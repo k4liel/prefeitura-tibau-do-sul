@@ -1,0 +1,26 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+.venv/
+venv/
+
+backend/.env
+backend/staticfiles/
+backend/db.sqlite3
+
+node_modules/
+
+.ruff_cache/
+
+# Test artifacts
+test-results/
+e2e/test-results/
+
+# Data (large files)
+data/
+
+# OS
+.DS_Store
+Thumbs.db

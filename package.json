@@ -1,0 +1,15 @@
+{
+  "name": "observatorio-tibau-do-sul",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Repositorio de inteligencia publica de Tibau do Sul",
+  "scripts": {
+    "legacy:serve": "node scripts/serve.js",
+    "legacy:data:update": "node scripts/update-data-2025.js",
+    "e2e:test": "playwright test",
+    "e2e:test:headed": "playwright test --headed"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1"
+  }
+}

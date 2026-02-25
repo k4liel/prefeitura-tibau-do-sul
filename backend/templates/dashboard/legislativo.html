@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Legislativo | Sistema Tibau do Sul{% endblock %}
+
+{% block content %}
+<header class="page-intro">
+  <h1>Legislativo</h1>
+  <p>Camara de vereadores do municipio - mandato 2025-2028.</p>
+</header>
+
+<section class="panel">
+  <h2>Vereadores (mandato 2025-2028)</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Partido</th>
+          <th>Mandato</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for vereador in vereadores %}
+        <tr>
+          <td>{{ vereador.nome }}</td>
+          <td><span class="badge">{{ vereador.partido }}</span></td>
+          <td>{{ vereador.mandato }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3">Nenhum vereador carregado.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

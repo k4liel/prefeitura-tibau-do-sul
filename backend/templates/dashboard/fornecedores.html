@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load formatters %}
+
+{% block title %}Fornecedores | Sistema Tibau do Sul{% endblock %}
+
+{% block content %}
+<header class="page-intro">
+  <h1>Fornecedores</h1>
+  <p>Ranking financeiro de fornecedores com foco em concentracao e volume contratado.</p>
+</header>
+
+{% if insights %}
+<div class="insights-box">
+  <h2>Insights automaticos</h2>
+  <ul>
+    {% for item in insights %}
+    <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<div class="export-bar">
+  <a class="link-btn" href="/api/fornecedores/ranking/?export=csv&search={{ search }}&cnpj={{ cnpj }}&valor_min={{ valor_min }}&ordering={{ ordering }}">Exportar CSV</a>
+</div>
+
+<section class="panel">
+  <div class="grid grid-3">
+    <article class="kpi">
+      <div class="label">Total filtrado</div>
+      <div class="v">{{ resumo.total_filtrado|currency_brl }}</div>
+    </article>
+    <article class="kpi">
+      <div class="label">Fornecedores</div>
+      <div class="v">{{ resumo.quantidade }}</div>
+    </article>
+    <article class="kpi danger">
+      <div class="label">Concentracao top 5</div>
+      <div class="v">{{ resumo.concentracao_top5|percent }}</div>
+    </article>
+  </div>
+</section>
+
+<section class="panel">
+  <form method="get" class="filter-grid">
+    <div>
+      <label for="fornecedores-search" class="sr-only">Nome ou CNPJ</label>
+      <input id="fornecedores-search" type="text" name="search" placeholder="Nome/CNPJ" value="{{ search }}">
+    </div>
+    <div>
+      <label for="fornecedores-cnpj" class="sr-only">CNPJ</label>
+      <input id="fornecedores-cnpj" type="text" name="cnpj" placeholder="CNPJ" value="{{ cnpj }}">
+    </div>
+    <div>
+      <label for="fornecedores-valor-min" class="sr-only">Valor minimo</label>
+      <input id="fornecedores-valor-min" type="number" step="0.01" name="valor_min" placeholder="Valor minimo" value="{{ valor_min }}">
+    </div>
+    <div>
+      <label for="fornecedores-ordering" class="sr-only">Ordenacao</label>
+      <select id="fornecedores-ordering" name="ordering">
+        <option value="-valor_total" {% if ordering == '-valor_total' %}selected{% endif %}>Maior valor</option>
+        <option value="valor_total" {% if ordering == 'valor_total' %}selected{% endif %}>Menor valor</option>
+        <option value="nome" {% if ordering == 'nome' %}selected{% endif %}>Nome A-Z</option>
+        <option value="-nome" {% if ordering == '-nome' %}selected{% endif %}>Nome Z-A</option>
+      </select>
+    </div>
+    <button type="submit">Filtrar</button>
+  </form>
+</section>
+
+<section class="panel">
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Nome</th><th>CNPJ</th><th>Valor total</th></tr></thead>
+      <tbody>
+        {% for item in page_obj %}
+        <tr>
+          <td>{{ item.nome }}</td>
+          <td>{{ item.cnpj|default:"-" }}</td>
+          <td class="num">{{ item.valor_total|currency_brl }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3">Nenhum fornecedor encontrado.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if page_obj.paginator.num_pages > 1 %}
+  <nav class="pagination">
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}&search={{ search }}&cnpj={{ cnpj }}&valor_min={{ valor_min }}&ordering={{ ordering }}">Anterior</a>
+    {% endif %}
+    <span class="info">Pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}&search={{ search }}&cnpj={{ cnpj }}&valor_min={{ valor_min }}&ordering={{ ordering }}">Proxima</a>
+    {% endif %}
+  </nav>
+  {% endif %}
+</section>
+{% endblock %}

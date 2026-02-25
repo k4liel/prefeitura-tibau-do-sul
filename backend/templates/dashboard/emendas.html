@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load formatters %}
+
+{% block title %}Emendas Parlamentares | Sistema Tibau do Sul{% endblock %}
+
+{% block content %}
+<header class="page-intro">
+  <h1>Emendas Parlamentares</h1>
+  <p>Painel dedicado para acompanhamento de previsao, realizacao e pagamento de emendas.</p>
+</header>
+
+{% if insights %}
+<div class="insights-box">
+  <h2>Insights automaticos</h2>
+  <ul>
+    {% for item in insights %}
+    <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<section class="panel">
+  <div class="grid">
+    <article class="kpi">
+      <div class="label">Quantidade de emendas</div>
+      <div class="v">{{ resumo.quantidade }}</div>
+    </article>
+    <article class="kpi">
+      <div class="label">Valor previsto</div>
+      <div class="v">{{ resumo.previsto|currency_brl }}</div>
+    </article>
+    <article class="kpi accent">
+      <div class="label">Valor empenhado</div>
+      <div class="v">{{ resumo.empenhado|currency_brl }}</div>
+    </article>
+    <article class="kpi success">
+      <div class="label">Valor pago</div>
+      <div class="v">{{ resumo.pago|currency_brl }}</div>
+    </article>
+  </div>
+</section>
+
+<section class="panel">
+  <form method="get" class="filter-grid">
+    <div>
+      <label for="emendas-search" class="sr-only">Busca textual</label>
+      <input id="emendas-search" type="text" name="search" placeholder="Busca textual" value="{{ search }}">
+    </div>
+    <div>
+      <label for="emendas-tipo" class="sr-only">Tipo</label>
+      <select id="emendas-tipo" name="tipo">
+        <option value="">Todos os tipos</option>
+        {% for t in tipos %}
+        <option value="{{ t }}" {% if tipo == t %}selected{% endif %}>{{ t }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label for="emendas-origem" class="sr-only">Origem do recurso</label>
+      <select id="emendas-origem" name="origem_recurso">
+        <option value="">Todas as origens</option>
+        {% for o in origens %}
+        <option value="{{ o }}" {% if origem_recurso == o %}selected{% endif %}>{{ o }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit">Filtrar</button>
+  </form>
+</section>
+
+<section class="panel">
+  <h2>Detalhamento de emendas</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Numero</th>
+          <th>Autoria</th>
+          <th>Tipo</th>
+          <th>Origem</th>
+          <th>Objeto</th>
+          <th>Funcao</th>
+          <th>Valor Previsto</th>
+          <th>Valor Pago</th>
+          <th>Data</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for e in page_obj %}
+        <tr>
+          <td>{{ e.numero|default:"-" }}</td>
+          <td>{{ e.autoria|default:"-" }}</td>
+          <td><span class="badge accent">{{ e.tipo|default:"-" }}</span></td>
+          <td><span class="badge">{{ e.origem_recurso|default:"-" }}</span></td>
+          <td>{{ e.objeto|default:"-"|truncatechars:120 }}</td>
+          <td>{{ e.funcao_governo|default:"-" }}</td>
+          <td class="num">{{ e.valor_previsto|currency_brl }}</td>
+          <td class="num">{{ e.valor_pago|currency_brl }}</td>
+          <td>{{ e.data_emenda|date:"d/m/Y"|default:"-" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="9">Sem dados de emendas disponiveis.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if page_obj.paginator.num_pages > 1 %}
+  <nav class="pagination">
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}&search={{ search }}&tipo={{ tipo }}&origem_recurso={{ origem_recurso }}">Anterior</a>
+    {% endif %}
+    <span class="info">Pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}&search={{ search }}&tipo={{ tipo }}&origem_recurso={{ origem_recurso }}">Proxima</a>
+    {% endif %}
+  </nav>
+  {% endif %}
+</section>
+{% endblock %}

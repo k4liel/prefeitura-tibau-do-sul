@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% load formatters %}
+
+{% block title %}Financas | Sistema Tibau do Sul{% endblock %}
+
+{% block content %}
+<header class="page-intro">
+  <h1>Financas 2025</h1>
+  <p>Visao consolidada de arrecadacao, execucao orcamentaria e distribuicao por secretaria.</p>
+</header>
+
+{% if insights %}
+<div class="insights-box">
+  <h2>Insights automaticos</h2>
+  <ul>
+    {% for item in insights %}
+    <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<section class="panel">
+  <div class="grid">
+    <article class="kpi success">
+      <div class="label">Arrecadacao</div>
+      <div class="v">{{ financeiro.arrecadacao|currency_brl }}</div>
+      <div class="meta">Execucao da receita: {{ financeiro.execucao_pct|percent }}</div>
+    </article>
+    <article class="kpi danger">
+      <div class="label">Despesa paga</div>
+      <div class="v">{{ financeiro.pago|currency_brl }}</div>
+      <div class="meta">Liquidado: {{ financeiro.liquidado|currency_brl }}</div>
+    </article>
+    <article class="kpi accent">
+      <div class="label">Saldo fiscal</div>
+      <div class="v">{{ financeiro.saldo|currency_brl }}</div>
+      <div class="meta">Previsao: {{ financeiro.previsao|currency_brl }}</div>
+    </article>
+    <article class="kpi">
+      <div class="label">Maior orcamento</div>
+      <div class="v">{{ financeiro.top_secretaria.orcamento|currency_brl }}</div>
+      <div class="meta">{{ financeiro.top_secretaria.secretaria|default:"Sem dados" }}</div>
+    </article>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>Comparativo Receita x Despesa</h2>
+  <div class="chart-list">
+    <div class="chart-row">
+      <div class="chart-label">Receita realizada</div>
+      <div class="chart-track"><div class="chart-fill" style="width: {{ financeiro.receita_pct|floatformat:1 }}%;"></div></div>
+      <div class="chart-value">{{ financeiro.arrecadacao|currency_brl }}</div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-label">Despesa paga</div>
+      <div class="chart-track"><div class="chart-fill" style="width: {{ financeiro.despesa_pct|floatformat:1 }}%;"></div></div>
+      <div class="chart-value">{{ financeiro.pago|currency_brl }}</div>
+    </div>
+  </div>
+</section>
+
+{% if secretarias_chart %}
+<section class="panel">
+  <h2>Execucao por secretaria (top 8 por valor pago)</h2>
+  <div class="chart-list">
+    {% for item in secretarias_chart %}
+    <div class="chart-row">
+      <div class="chart-label">{{ item.secretaria }}</div>
+      <div class="chart-track"><div class="chart-fill" style="width: {{ item.pct|floatformat:1 }}%;"></div></div>
+      <div class="chart-value">{{ item.valor|currency_brl }}</div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section class="panel">
+  <h2>Receitas consolidadas</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Ano</th>
+          <th>Previsao</th>
+          <th>Arrecadacao</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in receitas %}
+        <tr>
+          <td>{{ r.ano }}</td>
+          <td class="num">{{ r.previsao|currency_brl }}</td>
+          <td class="num">{{ r.arrecadacao|currency_brl }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3">Nenhum dado de receita.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="split">
+    <h2>Top orcamento por secretaria</h2>
+    <a class="link-btn" href="/api/financas/por-secretaria/?export=csv&ano=2025">Exportar CSV</a>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Secretaria</th>
+          <th>Orcamento</th>
+          <th>Empenhado</th>
+          <th>Liquidado</th>
+          <th>Pago</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for d in despesas %}
+        <tr>
+          <td>{{ d.secretaria }}</td>
+          <td class="num">{{ d.orcamento|currency_brl }}</td>
+          <td class="num">{{ d.empenhado|currency_brl }}</td>
+          <td class="num">{{ d.liquidado|currency_brl }}</td>
+          <td class="num">{{ d.pago|currency_brl }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">Nenhum dado de despesa.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

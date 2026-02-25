@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% load formatters %}
+
+{% block title %}Licitacoes | Sistema Tibau do Sul{% endblock %}
+
+{% block content %}
+<header class="page-intro">
+  <h1>Licitacoes</h1>
+  <p>Painel de certames com filtros de modalidade e faixa de valor.</p>
+</header>
+
+{% if insights %}
+<div class="insights-box">
+  <h2>Insights automaticos</h2>
+  <ul>
+    {% for item in insights %}
+    <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<div class="export-bar">
+  <a class="link-btn" href="/api/contratacoes/licitacoes/?export=csv&search={{ search }}&modalidade={{ modalidade }}&status={{ status }}&valor_min={{ valor_min }}&valor_max={{ valor_max }}&ordering={{ ordering }}">Exportar CSV</a>
+</div>
+
+<section class="panel">
+  <div class="grid">
+    <article class="kpi">
+      <div class="label">Total filtrado</div>
+      <div class="v">{{ resumo.total_filtrado|currency_brl }}</div>
+    </article>
+    <article class="kpi">
+      <div class="label">Quantidade</div>
+      <div class="v">{{ resumo.quantidade }}</div>
+    </article>
+    <article class="kpi">
+      <div class="label">Certames unicos</div>
+      <div class="v">{{ resumo.certames_unicos }}</div>
+      <div class="meta">Lotes adicionais: {{ resumo.lotes_estimados }}</div>
+    </article>
+    <article class="kpi accent">
+      <div class="label">Ticket medio</div>
+      <div class="v">{{ resumo.ticket_medio|currency_brl }}</div>
+    </article>
+  </div>
+</section>
+
+<section class="panel">
+  <form method="get" class="filter-grid">
+    <div>
+      <label for="licitacoes-search" class="sr-only">Busca textual</label>
+      <input id="licitacoes-search" type="text" name="search" placeholder="Busca textual" value="{{ search }}">
+    </div>
+    <div>
+      <label for="licitacoes-modalidade" class="sr-only">Modalidade</label>
+      <input id="licitacoes-modalidade" type="text" name="modalidade" placeholder="Modalidade" value="{{ modalidade }}">
+    </div>
+    <div>
+      <label for="licitacoes-valor-min" class="sr-only">Valor minimo</label>
+      <input id="licitacoes-valor-min" type="number" step="0.01" name="valor_min" placeholder="Valor minimo" value="{{ valor_min }}">
+    </div>
+    <div>
+      <label for="licitacoes-valor-max" class="sr-only">Valor maximo</label>
+      <input id="licitacoes-valor-max" type="number" step="0.01" name="valor_max" placeholder="Valor maximo" value="{{ valor_max }}">
+    </div>
+    <div>
+      <label for="licitacoes-status" class="sr-only">Status</label>
+      <select id="licitacoes-status" name="status">
+        <option value="">Todos os status</option>
+        {% for s in statuses %}
+        <option value="{{ s }}" {% if status == s %}selected{% endif %}>{{ s }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label for="licitacoes-ordering" class="sr-only">Ordenacao</label>
+      <select id="licitacoes-ordering" name="ordering">
+        <option value="-valor" {% if ordering == '-valor' %}selected{% endif %}>Maior valor</option>
+        <option value="valor" {% if ordering == 'valor' %}selected{% endif %}>Menor valor</option>
+        <option value="certame" {% if ordering == 'certame' %}selected{% endif %}>Certame A-Z</option>
+        <option value="-certame" {% if ordering == '-certame' %}selected{% endif %}>Certame Z-A</option>
+      </select>
+    </div>
+    <button type="submit">Filtrar</button>
+  </form>
+</section>
+
+<section class="panel">
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Certame</th><th>Modalidade</th><th>Status</th><th>Valor</th><th>Objeto</th><th>Edital</th></tr></thead>
+      <tbody>
+        {% for item in page_obj %}
+        <tr>
+          <td>{{ item.certame }}</td>
+          <td><span class="badge">{{ item.modalidade }}</span></td>
+          <td>
+            {% if item.status == "Homologada" or item.status == "Concluida" %}
+            <span class="badge success">{{ item.status }}</span>
+            {% elif item.status == "Cancelada" or item.status == "Revogada" or item.status == "Deserta" %}
+            <span class="badge danger">{{ item.status }}</span>
+            {% elif item.status == "Em andamento" or item.status == "Aberta" %}
+            <span class="badge warning">{{ item.status }}</span>
+            {% else %}
+            <span class="badge">{{ item.status|default:"-" }}</span>
+            {% endif %}
+          </td>
+          <td class="num">{{ item.valor|currency_brl }}</td>
+          <td>{{ item.objeto|truncatechars:140 }}</td>
+          <td>
+            {% if item.link_edital %}
+            <a href="{{ item.link_edital }}" target="_blank" rel="noreferrer" title="Ver edital">&#128196;</a>
+            {% else %}
+            -
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6">Nenhuma licitacao encontrada.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if page_obj.paginator.num_pages > 1 %}
+  <nav class="pagination">
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}&search={{ search }}&modalidade={{ modalidade }}&status={{ status }}&valor_min={{ valor_min }}&valor_max={{ valor_max }}&ordering={{ ordering }}">Anterior</a>
+    {% endif %}
+    <span class="info">Pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}&search={{ search }}&modalidade={{ modalidade }}&status={{ status }}&valor_min={{ valor_min }}&valor_max={{ valor_max }}&ordering={{ ordering }}">Proxima</a>
+    {% endif %}
+  </nav>
+  {% endif %}
+</section>
+{% endblock %}

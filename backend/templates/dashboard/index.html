@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+{% load formatters %}
+
+{% block title %}Dashboard | Sistema Tibau do Sul{% endblock %}
+
+{% block content %}
+<header class="page-intro">
+  <h1>Dashboard Executivo</h1>
+  <p>Panorama institucional com foco em governanca, pessoas e saude financeira municipal.</p>
+</header>
+
+{% if one_minute %}
+<section class="panel">
+  <div class="split">
+    <h2>Leitura em 1 minuto</h2>
+    <span class="badge accent">Visao gerencial rapida</span>
+  </div>
+  <div class="grid" style="margin-top: 14px;">
+    <article class="kpi {% if one_minute.saldo >= 0 %}success{% else %}danger{% endif %}">
+      <div class="label">Saldo fiscal</div>
+      <div class="v">{{ one_minute.saldo|currency_brl }}</div>
+    </article>
+    <article class="kpi">
+      <div class="label">Receita realizada</div>
+      <div class="v">{{ one_minute.receita_realizada|currency_brl }}</div>
+    </article>
+    <article class="kpi">
+      <div class="label">Despesa paga</div>
+      <div class="v">{{ one_minute.despesa_paga|currency_brl }}</div>
+    </article>
+    <article class="kpi danger">
+      <div class="label">Concentracao top 5</div>
+      <div class="v">{{ one_minute.concentracao_top5|percent }}</div>
+    </article>
+  </div>
+</section>
+{% endif %}
+
+{% if riscos %}
+<div class="riscos-box">
+  <h2>Top riscos automaticos</h2>
+  <ul>
+    {% for item in riscos %}
+    <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<section class="panel">
+  <h2>Indicadores gerais</h2>
+  <div class="grid" style="margin-top: 10px;">
+    <article class="kpi"><div class="label">Secretarias</div><div class="v">{{ kpis.secretarias }}</div></article>
+    <article class="kpi"><div class="label">Vereadores</div><div class="v">{{ kpis.vereadores }}</div></article>
+    <article class="kpi"><div class="label">Servidores</div><div class="v">{{ kpis.servidores }}</div></article>
+    <article class="kpi"><div class="label">Licitacoes</div><div class="v">{{ kpis.licitacoes }}</div></article>
+    <article class="kpi"><div class="label">Contratos</div><div class="v">{{ kpis.contratos }}</div></article>
+    <article class="kpi accent"><div class="label">Emendas</div><div class="v">{{ kpis.emendas }}</div></article>
+    <article class="kpi"><div class="label">Itens orcamentarios</div><div class="v">{{ kpis.orcamento_itens }}</div></article>
+    <article class="kpi success"><div class="label">Receita arrecadada</div><div class="v">{{ kpis.receita_arrecadada|currency_brl }}</div></article>
+    <article class="kpi danger"><div class="label">Despesa paga</div><div class="v">{{ kpis.despesa_paga|currency_brl }}</div></article>
+  </div>
+</section>
+
+{% if contexto_municipio.ibge %}
+<section class="panel">
+  <div class="split">
+    <h2>Panorama Geral do Municipio</h2>
+    <span class="badge">Fonte: {{ contexto_municipio.ibge.fonte }}</span>
+  </div>
+  <div class="grid" style="margin-top: 10px;">
+    <article class="kpi">
+      <div class="label">Habitantes estimados (2025)</div>
+      <div class="v">{{ contexto_municipio.ibge.populacao_estimada_2025 }}</div>
+      <div class="meta">Censo 2022: {{ contexto_municipio.ibge.populacao_censo_2022 }}</div>
+    </article>
+    <article class="kpi">
+      <div class="label">Area territorial</div>
+      <div class="v">{{ contexto_municipio.ibge.area_territorial }}</div>
+      <div class="meta">Densidade: {{ contexto_municipio.ibge.densidade_demografica }}</div>
+    </article>
+    <article class="kpi">
+      <div class="label">IDHM</div>
+      <div class="v">{{ contexto_municipio.ibge.idhm }}</div>
+      <div class="meta">PIB per capita: {{ contexto_municipio.ibge.pib_per_capita }}</div>
+    </article>
+    <article class="kpi">
+      <div class="label">Regiao</div>
+      <div class="v">{{ contexto_municipio.ibge.regiao_intermediaria }}</div>
+      <div class="meta">Imediata: {{ contexto_municipio.ibge.regiao_imediata }}</div>
+    </article>
+  </div>
+</section>
+{% endif %}
+
+{% if contexto_municipio.tce_rn %}
+<section class="panel">
+  <div class="split">
+    <h2>Contexto Fiscal (TCE-RN)</h2>
+    <span class="badge">Fonte: {{ contexto_municipio.tce_rn.fonte }}</span>
+  </div>
+  <div class="grid" style="margin-top: 10px;">
+    <article class="kpi success">
+      <div class="label">Receita realizada</div>
+      <div class="v">{{ contexto_municipio.tce_rn.receita_realizada|currency_brl }}</div>
+      <div class="meta">Prevista: {{ contexto_municipio.tce_rn.receita_prevista|currency_brl }}</div>
+    </article>
+    <article class="kpi danger">
+      <div class="label">Despesa paga</div>
+      <div class="v">{{ contexto_municipio.tce_rn.despesa_paga|currency_brl }}</div>
+      <div class="meta">Empenhada: {{ contexto_municipio.tce_rn.despesa_empenhada|currency_brl }}</div>
+    </article>
+    <article class="kpi accent">
+      <div class="label">Licitacoes 2025</div>
+      <div class="v">{{ contexto_municipio.tce_rn.licitacoes_qtd }}</div>
+      <div class="meta">Valor orcado: {{ contexto_municipio.tce_rn.licitacoes_valor_total_orcado|currency_brl }}</div>
+    </article>
+    <article class="kpi">
+      <div class="label">Contratos cadastrados</div>
+      <div class="v">{{ contexto_municipio.tce_rn.contratos_qtd }}</div>
+      <div class="meta">Total: {{ contexto_municipio.tce_rn.contratos_valor_total|currency_brl }}</div>
+    </article>
+  </div>
+</section>
+{% endif %}
+
+{% if diagnostico %}
+<section class="panel">
+  <h2>Diagnostico do Municipio</h2>
+  <div class="grid" style="margin-top: 10px;">
+    <article class="kpi">
+      <div class="label">Demografia</div>
+      <div class="v">{{ diagnostico.demografia.habitantes }}</div>
+      <div class="meta">Censo: {{ diagnostico.demografia.censo }}</div>
+    </article>
+    <article class="kpi">
+      <div class="label">Educacao</div>
+      <div class="v">{{ diagnostico.educacao.escolarizacao }}</div>
+      <div class="meta">IDHM: {{ diagnostico.educacao.idhm }}</div>
+    </article>
+    <article class="kpi">
+      <div class="label">Saude</div>
+      <div class="v">{{ diagnostico.saude.mortalidade_infantil }}</div>
+      <div class="meta">Indicador de mortalidade infantil</div>
+    </article>
+    <article class="kpi success">
+      <div class="label">Fiscal</div>
+      <div class="v">{{ diagnostico.fiscal.receita_realizada|currency_brl }}</div>
+      <div class="meta">Despesa paga: {{ diagnostico.fiscal.despesa_paga|currency_brl }}</div>
+    </article>
+    <article class="kpi accent">
+      <div class="label">Contratacoes</div>
+      <div class="v">{{ diagnostico.contratacoes.processos_unicos }}</div>
+      <div class="meta">{{ diagnostico.contratacoes.homologadas }} homologadas / {{ diagnostico.contratacoes.em_andamento }} em andamento</div>
+    </article>
+    <article class="kpi">
+      <div class="label">Emendas Parlamentares</div>
+      <div class="v">{{ diagnostico.emendas.quantidade }}</div>
+      <div class="meta">Previsto: {{ diagnostico.emendas.previsto_total|currency_brl }}</div>
+    </article>
+    <article class="kpi {% if diagnostico.operacionais.fontes_ok == diagnostico.operacionais.fontes_total %}success{% else %}danger{% endif %}">
+      <div class="label">Fontes operacionais</div>
+      <div class="v">{{ diagnostico.operacionais.fontes_ok }}/{{ diagnostico.operacionais.fontes_total }}</div>
+      <div class="meta">Diarias, obras e PCA</div>
+    </article>
+  </div>
+</section>
+{% endif %}
+
+{% if operacionais_topsolutions %}
+<section class="panel">
+  <h2>Status operacional TopSolutions</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Fonte</th><th>Status</th><th>HTTP</th><th>Registros</th><th>Codigo de erro</th><th>Endpoint</th></tr></thead>
+      <tbody>
+        {% for item in operacionais_topsolutions %}
+        <tr>
+          <td>{{ item.titulo }}</td>
+          <td>
+            {% if item.ok %}
+            <span class="badge success">ativo</span>
+            {% else %}
+            <span class="badge danger">pendente</span>
+            {% endif %}
+          </td>
+          <td>{{ item.status_code|default:"-" }}</td>
+          <td class="num">{{ item.count|default:"0" }}</td>
+          <td>{{ item.error_code|default:"-" }}</td>
+          <td><a href="{{ item.url }}" target="_blank" rel="noreferrer">abrir</a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6">Sem diagnostico operacional registrado.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endif %}
+
+<section class="panel">
+  <h2>Atalhos de API</h2>
+  <div class="api-grid">
+    <a href="/api/governanca/resumo/">/api/governanca/resumo/</a>
+    <a href="/api/legislativo/vereadores/">/api/legislativo/vereadores/</a>
+    <a href="/api/financas/resumo/">/api/financas/resumo/</a>
+    <a href="/api/pessoal/funcionarios/">/api/pessoal/funcionarios/</a>
+    <a href="/api/ingestao/status/">/api/ingestao/status/</a>
+  </div>
+</section>
+{% endblock %}

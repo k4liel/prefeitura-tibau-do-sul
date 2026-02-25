@@ -1,0 +1,1544 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Tibau API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/dashboard/overview/": {
+      "get": {
+        "operationId": "listDashboardOverviews",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      }
+    },
+    "/api/governanca/resumo/": {
+      "get": {
+        "operationId": "listResumoGovernancas",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      }
+    },
+    "/api/governanca/secretarias/": {
+      "get": {
+        "operationId": "listSecretaria",
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Um número de página dentro do conjunto de resultados paginado.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "nome",
+            "required": false,
+            "in": "query",
+            "description": "nome",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "gestor",
+            "required": false,
+            "in": "query",
+            "description": "gestor",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Um termo de busca.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ordering",
+            "required": false,
+            "in": "query",
+            "description": "Qual campo usar ao ordenar os resultados.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "count",
+                    "results"
+                  ],
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "example": 123
+                    },
+                    "next": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=4"
+                    },
+                    "previous": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=2"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Secretaria"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      }
+    },
+    "/api/legislativo/vereadores/": {
+      "get": {
+        "operationId": "listVereadors",
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Um número de página dentro do conjunto de resultados paginado.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "partido",
+            "required": false,
+            "in": "query",
+            "description": "partido",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mandato",
+            "required": false,
+            "in": "query",
+            "description": "mandato",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Um termo de busca.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ordering",
+            "required": false,
+            "in": "query",
+            "description": "Qual campo usar ao ordenar os resultados.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "count",
+                    "results"
+                  ],
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "example": 123
+                    },
+                    "next": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=4"
+                    },
+                    "previous": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=2"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Vereador"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      }
+    },
+    "/api/pessoal/resumo/": {
+      "get": {
+        "operationId": "listResumoPessoals",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      }
+    },
+    "/api/pessoal/funcionarios/": {
+      "get": {
+        "operationId": "listServidors",
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Um número de página dentro do conjunto de resultados paginado.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "orgao",
+            "required": false,
+            "in": "query",
+            "description": "orgao",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "vinculo",
+            "required": false,
+            "in": "query",
+            "description": "vinculo",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Um termo de busca.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ordering",
+            "required": false,
+            "in": "query",
+            "description": "Qual campo usar ao ordenar os resultados.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "count",
+                    "results"
+                  ],
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "example": 123
+                    },
+                    "next": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=4"
+                    },
+                    "previous": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=2"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Servidor"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      }
+    },
+    "/api/financas/resumo/": {
+      "get": {
+        "operationId": "listResumoFinanceiros",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      }
+    },
+    "/api/financas/por-secretaria/": {
+      "get": {
+        "operationId": "listDespesaSecretaria",
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Um número de página dentro do conjunto de resultados paginado.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "ano",
+            "required": false,
+            "in": "query",
+            "description": "ano",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "secretaria",
+            "required": false,
+            "in": "query",
+            "description": "secretaria",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Um termo de busca.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ordering",
+            "required": false,
+            "in": "query",
+            "description": "Qual campo usar ao ordenar os resultados.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "count",
+                    "results"
+                  ],
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "example": 123
+                    },
+                    "next": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=4"
+                    },
+                    "previous": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=2"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/DespesaSecretaria"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      }
+    },
+    "/api/contratacoes/licitacoes/": {
+      "get": {
+        "operationId": "listLicitacaos",
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Um número de página dentro do conjunto de resultados paginado.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "modalidade",
+            "required": false,
+            "in": "query",
+            "description": "modalidade",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Um termo de busca.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ordering",
+            "required": false,
+            "in": "query",
+            "description": "Qual campo usar ao ordenar os resultados.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "count",
+                    "results"
+                  ],
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "example": 123
+                    },
+                    "next": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=4"
+                    },
+                    "previous": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=2"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Licitacao"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      }
+    },
+    "/api/contratacoes/contratos/": {
+      "get": {
+        "operationId": "listContratos",
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Um número de página dentro do conjunto de resultados paginado.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "modalidade",
+            "required": false,
+            "in": "query",
+            "description": "modalidade",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "empresa",
+            "required": false,
+            "in": "query",
+            "description": "empresa",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Um termo de busca.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ordering",
+            "required": false,
+            "in": "query",
+            "description": "Qual campo usar ao ordenar os resultados.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "count",
+                    "results"
+                  ],
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "example": 123
+                    },
+                    "next": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=4"
+                    },
+                    "previous": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=2"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Contrato"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      }
+    },
+    "/api/fornecedores/ranking/": {
+      "get": {
+        "operationId": "listFornecedors",
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Um número de página dentro do conjunto de resultados paginado.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "cnpj",
+            "required": false,
+            "in": "query",
+            "description": "cnpj",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Um termo de busca.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ordering",
+            "required": false,
+            "in": "query",
+            "description": "Qual campo usar ao ordenar os resultados.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "count",
+                    "results"
+                  ],
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "example": 123
+                    },
+                    "next": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=4"
+                    },
+                    "previous": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=2"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Fornecedor"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      }
+    },
+    "/api/monitoramento/alertas/": {
+      "get": {
+        "operationId": "listAlerta",
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Um número de página dentro do conjunto de resultados paginado.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "severidade",
+            "required": false,
+            "in": "query",
+            "description": "severidade",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Um termo de busca.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ordering",
+            "required": false,
+            "in": "query",
+            "description": "Qual campo usar ao ordenar os resultados.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "count",
+                    "results"
+                  ],
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "example": 123
+                    },
+                    "next": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=4"
+                    },
+                    "previous": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=2"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Alerta"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      }
+    },
+    "/api/ingestao/status/": {
+      "get": {
+        "operationId": "listSyncRuns",
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Um número de página dentro do conjunto de resultados paginado.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "fonte",
+            "required": false,
+            "in": "query",
+            "description": "fonte",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "status",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Um termo de busca.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ordering",
+            "required": false,
+            "in": "query",
+            "description": "Qual campo usar ao ordenar os resultados.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "count",
+                    "results"
+                  ],
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "example": 123
+                    },
+                    "next": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=4"
+                    },
+                    "previous": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=2"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/SyncRun"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      }
+    },
+    "/api/ingestao/fontes/": {
+      "get": {
+        "operationId": "listDataProvenances",
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Um número de página dentro do conjunto de resultados paginado.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "fonte",
+            "required": false,
+            "in": "query",
+            "description": "fonte",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "recurso",
+            "required": false,
+            "in": "query",
+            "description": "recurso",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "versao",
+            "required": false,
+            "in": "query",
+            "description": "versao",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Um termo de busca.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ordering",
+            "required": false,
+            "in": "query",
+            "description": "Qual campo usar ao ordenar os resultados.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "count",
+                    "results"
+                  ],
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "example": 123
+                    },
+                    "next": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=4"
+                    },
+                    "previous": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=2"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/DataProvenance"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      }
+    },
+    "/api/ingestao/auditoria-manual/": {
+      "get": {
+        "operationId": "listLogEntries",
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Um número de página dentro do conjunto de resultados paginado.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "user",
+            "required": false,
+            "in": "query",
+            "description": "user",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "content_type",
+            "required": false,
+            "in": "query",
+            "description": "content_type",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "action_flag",
+            "required": false,
+            "in": "query",
+            "description": "action_flag",
+            "schema": {
+              "type": "string",
+              "enum": [
+                1,
+                2,
+                3
+              ]
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Um termo de busca.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ordering",
+            "required": false,
+            "in": "query",
+            "description": "Qual campo usar ao ordenar os resultados.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "count",
+                    "results"
+                  ],
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "example": 123
+                    },
+                    "next": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=4"
+                    },
+                    "previous": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=2"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ManualAuditLog"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Secretaria": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "nome": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "gestor": {
+            "type": "string",
+            "maxLength": 255
+          }
+        },
+        "required": [
+          "nome"
+        ]
+      },
+      "Vereador": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "nome": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "partido": {
+            "type": "string",
+            "maxLength": 60
+          },
+          "mandato": {
+            "type": "string",
+            "default": "2025-2028",
+            "maxLength": 20
+          }
+        },
+        "required": [
+          "nome",
+          "partido"
+        ]
+      },
+      "Servidor": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "matricula": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "nome": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "orgao": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "vinculo": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "valor_bruto": {
+            "type": "string",
+            "format": "decimal",
+            "multipleOf": 0.01,
+            "maximum": 1000000000000,
+            "minimum": -1000000000000
+          },
+          "valor_liquido": {
+            "type": "string",
+            "format": "decimal",
+            "multipleOf": 0.01,
+            "maximum": 1000000000000,
+            "minimum": -1000000000000
+          }
+        },
+        "required": [
+          "nome",
+          "orgao"
+        ]
+      },
+      "DespesaSecretaria": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "ano": {
+            "type": "integer",
+            "maximum": 2147483647,
+            "minimum": -2147483648
+          },
+          "secretaria": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "orcamento": {
+            "type": "string",
+            "format": "decimal",
+            "multipleOf": 0.01,
+            "maximum": 100000000000000,
+            "minimum": -100000000000000
+          },
+          "empenhado": {
+            "type": "string",
+            "format": "decimal",
+            "multipleOf": 0.01,
+            "maximum": 100000000000000,
+            "minimum": -100000000000000
+          },
+          "liquidado": {
+            "type": "string",
+            "format": "decimal",
+            "multipleOf": 0.01,
+            "maximum": 100000000000000,
+            "minimum": -100000000000000
+          },
+          "pago": {
+            "type": "string",
+            "format": "decimal",
+            "multipleOf": 0.01,
+            "maximum": 100000000000000,
+            "minimum": -100000000000000
+          }
+        },
+        "required": [
+          "ano",
+          "secretaria"
+        ]
+      },
+      "Licitacao": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "certame": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "modalidade": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "objeto": {
+            "type": "string"
+          },
+          "valor": {
+            "type": "string",
+            "format": "decimal",
+            "multipleOf": 0.01,
+            "maximum": 100000000000000,
+            "minimum": -100000000000000
+          }
+        }
+      },
+      "Contrato": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "numero": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "empresa": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "modalidade": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "objeto": {
+            "type": "string"
+          },
+          "valor": {
+            "type": "string",
+            "format": "decimal",
+            "multipleOf": 0.01,
+            "maximum": 100000000000000,
+            "minimum": -100000000000000
+          }
+        },
+        "required": [
+          "empresa"
+        ]
+      },
+      "Fornecedor": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "nome": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "cnpj": {
+            "type": "string",
+            "maxLength": 30
+          },
+          "valor_total": {
+            "type": "string",
+            "format": "decimal",
+            "multipleOf": 0.01,
+            "maximum": 100000000000000,
+            "minimum": -100000000000000
+          }
+        },
+        "required": [
+          "nome"
+        ]
+      },
+      "Alerta": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "codigo": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "titulo": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "severidade": {
+            "type": "string",
+            "maxLength": 20
+          },
+          "detalhes": {
+            "type": "string"
+          },
+          "criado_em": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "codigo",
+          "titulo"
+        ]
+      },
+      "SyncRun": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "fonte": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "status": {
+            "type": "string",
+            "maxLength": 30
+          },
+          "iniciado_em": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "finalizado_em": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "mensagem": {
+            "type": "string"
+          },
+          "registro_count": {
+            "type": "integer",
+            "maximum": 2147483647,
+            "minimum": -2147483648
+          },
+          "erro_count": {
+            "type": "integer",
+            "maximum": 2147483647,
+            "minimum": -2147483648
+          }
+        },
+        "required": [
+          "fonte"
+        ]
+      },
+      "DataProvenance": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "fonte": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "endpoint": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "recurso": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "external_id": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "payload_hash": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "versao": {
+            "type": "string",
+            "maxLength": 30
+          },
+          "coletado_em": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "fonte",
+          "endpoint",
+          "recurso",
+          "payload_hash"
+        ]
+      },
+      "ManualAuditLog": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "action_time": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "usuario": {
+            "type": "string",
+            "readOnly": true
+          },
+          "content_type": {
+            "type": "integer",
+            "nullable": true
+          },
+          "object_repr": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "object_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "acao": {
+            "type": "string",
+            "readOnly": true
+          },
+          "change_message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "object_repr"
+        ]
+      }
+    }
+  }
+}

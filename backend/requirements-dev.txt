@@ -1,0 +1,6 @@
+-r requirements.txt
+pytest>=9,<10
+pytest-django>=4.12,<5
+ruff>=0.6,<1
+black>=24.8,<25
+isort>=5.13,<6

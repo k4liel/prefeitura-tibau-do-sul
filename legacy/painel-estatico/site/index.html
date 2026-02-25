@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Observatorio 2025 - Tibau do Sul</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@500;700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <p class="kicker">Observatorio de Gestao Publica</p>
+      <h1>Tibau do Sul 2025</h1>
+      <p class="subtitle">
+        Painel executivo com orcamento por secretaria, quadro de funcionarios, licitacoes,
+        contratos e empresas prestadoras de servico.
+      </p>
+      <p class="meta" id="metaRef">Carregando referencia...</p>
+    </div>
+  </header>
+
+  <main class="container main">
+    <section class="kpi-grid" id="kpiGrid"></section>
+
+    <section class="split charts">
+      <article class="panel">
+        <h2>Distribuicao do orcamento por secretaria</h2>
+        <p class="muted">Grafico de pizza com top secretarias por orcamento atualizado.</p>
+        <div id="pieChart" class="pie-block"></div>
+      </article>
+      <article class="panel">
+        <h2>Top 10 secretarias por orcamento</h2>
+        <p class="muted">Grafico de barras (orcamento atualizado 2025).</p>
+        <div id="barChart" class="bar-block"></div>
+      </article>
+    </section>
+
+    <section class="panel">
+      <h2>Orcamento por secretaria (despesa 2025)</h2>
+      <p class="muted">Valores de orcamento atualizado, empenhado, liquidado e pago.</p>
+      <div class="table-wrap">
+        <table id="tblOrcamento">
+          <thead>
+            <tr>
+              <th>Secretaria</th>
+              <th>Orcamento</th>
+              <th>Empenhado</th>
+              <th>Liquidado</th>
+              <th>Pago</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Busca textual - contratos e licitacoes</h2>
+      <p class="muted">Pesquise por empresa, objeto, modalidade ou numero do contrato/certame.</p>
+      <div class="search-grid">
+        <div>
+          <label for="searchText">Termo de busca</label>
+          <input id="searchText" type="search" placeholder="Ex.: software, internet, construcao, merenda, AD TELECOM">
+        </div>
+        <div>
+          <label for="searchType">Tipo</label>
+          <select id="searchType">
+            <option value="todos">Todos</option>
+            <option value="contrato">Contratos</option>
+            <option value="licitacao">Licitacoes</option>
+          </select>
+        </div>
+      </div>
+      <p class="muted" id="searchCount">0 resultados</p>
+      <div class="table-wrap">
+        <table id="tblBusca">
+          <thead>
+            <tr>
+              <th>Tipo</th>
+              <th>Codigo</th>
+              <th>Empresa</th>
+              <th>Modalidade</th>
+              <th>Valor</th>
+              <th>Objeto</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Funcionarios por secretaria</h2>
+      <p class="muted">Recorte da folha no mes 12/2025, com nomes e remuneracao.</p>
+
+      <div class="controls">
+        <label for="secSelect">Selecione a secretaria</label>
+        <select id="secSelect"></select>
+      </div>
+
+      <div class="kpi-mini" id="funcKpis"></div>
+
+      <div class="table-wrap">
+        <table id="tblFuncionarios">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Vinculo</th>
+              <th>Funcao</th>
+              <th>Carga horaria</th>
+              <th>Bruto</th>
+              <th>Liquido</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Alertas de governanca</h2>
+      <p class="muted">Concentracao de contratos, fornecedores e tecnologia.</p>
+      <div class="alert-grid" id="alertGrid"></div>
+      <div class="table-wrap">
+        <table id="tblTop10Contratos">
+          <thead>
+            <tr>
+              <th>Contrato</th>
+              <th>Empresa</th>
+              <th>Modalidade</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Vereadores eleitos (mandato 2025-2028)</h2>
+      <p class="muted">
+        Lista consolidada de vereadores eleitos para Tibau do Sul. Fonte: cobertura eleitoral baseada em dados do TSE.
+      </p>
+      <div class="table-wrap">
+        <table id="tblVereadores">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nome parlamentar</th>
+              <th>Partido</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="split">
+      <article class="panel">
+        <h2>Licitacoes 2025 (top valores)</h2>
+        <div class="table-wrap small">
+          <table id="tblLicitacoesTop">
+            <thead>
+              <tr>
+                <th>Certame</th>
+                <th>Secretaria</th>
+                <th>Modalidade</th>
+                <th>Valor</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="panel">
+        <h2>Empresas com maiores contratos</h2>
+        <div class="table-wrap small">
+          <table id="tblEmpresasTop">
+            <thead>
+              <tr>
+                <th>Empresa</th>
+                <th>Qtde contratos</th>
+                <th>Valor total</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel">
+      <h2>Empresas de tecnologia e afins</h2>
+      <p class="muted">Deteccao por palavras-chave em objetos e razao social (contratos e licitacoes).</p>
+      <div class="table-wrap">
+        <table id="tblTech">
+          <thead>
+            <tr>
+              <th>Tipo</th>
+              <th>Empresa</th>
+              <th>Modalidade</th>
+              <th>Valor</th>
+              <th>Objeto</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="./data/processed_2025.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}Hierarquia Organizacional | Sistema Tibau do Sul{% endblock %}
+
+{% block content %}
+<header class="page-intro">
+  <h1>Hierarquia Organizacional</h1>
+  <p>Estrutura topologica da prefeitura, do gabinete do prefeito ate os servidores vinculados por orgao.</p>
+</header>
+
+<section class="panel">
+  <div class="grid">
+    <article class="kpi">
+      <div class="label">Prefeito</div>
+      <div class="v">{{ prefeito }}</div>
+    </article>
+    <article class="kpi">
+      <div class="label">Vice-prefeito</div>
+      <div class="v">{{ vice_prefeito }}</div>
+    </article>
+    <article class="kpi accent">
+      <div class="label">Secretarias com servidores</div>
+      <div class="v">{{ resumo.secretarias_com_servidor }}/{{ resumo.total_secretarias }}</div>
+    </article>
+    <article class="kpi {% if resumo.servidores_sem_vinculo > 0 %}danger{% else %}success{% endif %}">
+      <div class="label">Servidores sem vinculo</div>
+      <div class="v">{{ resumo.servidores_sem_vinculo }}</div>
+      <div class="meta">Total de servidores: {{ resumo.total_servidores }}</div>
+    </article>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>Resumo por vinculo (top 10)</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Vinculo</th><th>Quantidade</th></tr></thead>
+      <tbody>
+        {% for nome, qtd in resumo_vinculos %}
+        <tr>
+          <td>{{ nome }}</td>
+          <td class="num">{{ qtd }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="2">Sem dados de vinculo.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>Arvore hierarquica: Prefeito &rarr; Secretaria &rarr; Servidores</h2>
+  {% for bloco in hierarquia_rows %}
+  <details>
+    <summary>
+      {{ bloco.secretaria.nome }}
+      {% if bloco.secretaria.gestor %}&mdash; Gestor: {{ bloco.secretaria.gestor }}{% endif %}
+      <span class="badge" style="margin-left: auto;">{{ bloco.servidores|length }} servidores</span>
+    </summary>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Servidor</th><th>Orgao de origem</th><th>Vinculo</th><th>Matricula</th></tr></thead>
+        <tbody>
+          {% for servidor in bloco.servidores %}
+          <tr>
+            <td>{{ servidor.nome }}</td>
+            <td>{{ servidor.orgao|default:"-" }}</td>
+            <td>{{ servidor.vinculo|default:"-" }}</td>
+            <td>{{ servidor.matricula|default:"-" }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </details>
+  {% empty %}
+  <p style="color: var(--muted); padding: 16px 0;">Nenhuma secretaria vinculada aos servidores encontrados.</p>
+  {% endfor %}
+</section>
+
+{% if servidores_sem_vinculo %}
+<section class="panel">
+  <div class="split">
+    <h2>Servidores sem secretaria mapeada</h2>
+    <span class="badge danger">{{ servidores_sem_vinculo|length }} registros</span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Servidor</th><th>Orgao informado</th><th>Vinculo</th><th>Matricula</th></tr></thead>
+      <tbody>
+        {% for servidor in servidores_sem_vinculo %}
+        <tr>
+          <td>{{ servidor.nome }}</td>
+          <td>{{ servidor.orgao|default:"-" }}</td>
+          <td>{{ servidor.vinculo|default:"-" }}</td>
+          <td>{{ servidor.matricula|default:"-" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endif %}
+
+{% if secretarias_sem_servidor %}
+<section class="panel">
+  <div class="split">
+    <h2>Secretarias sem servidores vinculados</h2>
+    <span class="badge warning">{{ secretarias_sem_servidor|length }} secretarias</span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Secretaria</th><th>Gestor</th></tr></thead>
+      <tbody>
+        {% for sec in secretarias_sem_servidor %}
+        <tr>
+          <td>{{ sec.nome }}</td>
+          <td>{{ sec.gestor|default:"-" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}Fontes e Auditoria | Sistema Tibau do Sul{% endblock %}
+
+{% block content %}
+<header class="page-intro">
+  <h1>Fontes e Auditoria</h1>
+  <p>Rastreabilidade de dados, qualidade das fontes e registro de alteracoes manuais.</p>
+</header>
+
+<div class="export-bar">
+  <a class="link-btn" href="/api/ingestao/fontes/?export=csv">Exportar fontes</a>
+  <a class="link-btn" href="/api/ingestao/auditoria-manual/?export=csv">Exportar auditoria</a>
+</div>
+
+{% if source_scores %}
+<section class="panel">
+  <h2>Score de qualidade por fonte</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Fonte</th><th>Score</th><th>Nivel</th><th>Confiabilidade</th><th>Completude</th><th>Desempenho</th><th>Falha (%)</th><th>Latencia (ms)</th><th>Rastreabilidade</th></tr></thead>
+      <tbody>
+        {% for item in source_scores %}
+        <tr>
+          <td>{{ item.fonte }}</td>
+          <td class="num"><strong>{{ item.score }}</strong></td>
+          <td>
+            {% if item.nivel == "alto" %}
+            <span class="badge success">alto</span>
+            {% elif item.nivel == "medio" %}
+            <span class="badge warning">medio</span>
+            {% else %}
+            <span class="badge danger">baixo</span>
+            {% endif %}
+          </td>
+          <td class="num">{{ item.confiabilidade|floatformat:1 }}</td>
+          <td class="num">{{ item.completude|floatformat:1 }}</td>
+          <td class="num">{{ item.desempenho|floatformat:1 }}</td>
+          <td class="num">{{ item.taxa_falha|floatformat:2 }}</td>
+          <td class="num">{{ item.latencia_media_ms|floatformat:0 }}</td>
+          <td class="num">{{ item.provenance_total }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endif %}
+
+<section class="panel">
+  <h2>Execucoes de sincronizacao</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Fonte</th><th>Status</th><th>Inicio</th><th>Fim</th><th>Registros</th><th>Erros</th></tr></thead>
+      <tbody>
+        {% for run in sync_runs %}
+        <tr>
+          <td>{{ run.fonte }}</td>
+          <td>
+            {% if run.status == 'sucesso' or run.status == 'success' %}
+            <span class="badge success">{{ run.status }}</span>
+            {% elif run.status == 'erro' or run.status == 'error' %}
+            <span class="badge danger">{{ run.status }}</span>
+            {% else %}
+            <span class="badge">{{ run.status }}</span>
+            {% endif %}
+          </td>
+          <td>{{ run.iniciado_em }}</td>
+          <td>{{ run.finalizado_em|default:"-" }}</td>
+          <td class="num">{{ run.registro_count }}</td>
+          <td class="num">{{ run.erro_count }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6">Sem execucoes registradas.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>Rastreabilidade de dados</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Fonte</th><th>Recurso</th><th>ID externo</th><th>Hash</th><th>Coletado em</th></tr></thead>
+      <tbody>
+        {% for item in fontes %}
+        <tr>
+          <td>{{ item.fonte }}</td>
+          <td>{{ item.recurso }}</td>
+          <td>{{ item.external_id|default:"-" }}</td>
+          <td><code>{{ item.payload_hash|truncatechars:20 }}</code></td>
+          <td>{{ item.coletado_em }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">Sem rastreabilidade registrada.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>Alteracoes manuais recentes</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Quando</th><th>Usuario</th><th>Modelo</th><th>Objeto</th><th>Acao</th><th>Detalhes</th></tr></thead>
+      <tbody>
+        {% for item in auditoria_manual %}
+        <tr>
+          <td>{{ item.action_time }}</td>
+          <td>{{ item.user|default:"-" }}</td>
+          <td>{{ item.content_type|default:"-" }}</td>
+          <td>{{ item.object_repr }}</td>
+          <td><span class="badge">{{ item.get_action_flag_display }}</span></td>
+          <td>{{ item.change_message|default:"-"|truncatechars:120 }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6">Sem alteracoes manuais registradas.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

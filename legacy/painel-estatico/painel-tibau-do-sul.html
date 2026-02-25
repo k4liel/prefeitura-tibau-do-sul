@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Painel de Organizacao - Tibau do Sul</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --ink: #162333;
+      --muted: #5f6e80;
+      --brand: #0b5ea8;
+      --brand-soft: #e9f3ff;
+      --line: #d7e0ea;
+      --ok: #0f7d54;
+      --warn: #8a6400;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Manrope", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 600px at 95% -10%, #dcefff 0%, transparent 65%),
+        radial-gradient(800px 500px at -10% 20%, #eef4ff 0%, transparent 60%),
+        var(--bg);
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 18px 40px;
+    }
+
+    .hero {
+      background: linear-gradient(140deg, #0e3f6f 0%, #0b5ea8 55%, #2f79bd 100%);
+      color: #fff;
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 10px 28px rgba(11, 66, 122, 0.24);
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-family: "Fraunces", serif;
+      font-size: clamp(26px, 4vw, 40px);
+      line-height: 1.1;
+    }
+
+    .hero p {
+      margin: 0;
+      color: #dcecfb;
+      max-width: 760px;
+    }
+
+    .grid {
+      margin-top: 16px;
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .metric {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .value {
+      font-weight: 700;
+      font-size: 21px;
+      line-height: 1.15;
+    }
+
+    .sec {
+      margin-top: 16px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .sec h2 {
+      margin: 0 0 10px;
+      font-family: "Fraunces", serif;
+      font-size: 24px;
+    }
+
+    .leaders {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .badge {
+      display: inline-block;
+      margin-bottom: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .03em;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--brand-soft);
+      color: var(--brand);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+      padding: 9px 8px;
+      vertical-align: top;
+    }
+
+    th { color: var(--muted); font-weight: 700; }
+
+    .mini { font-size: 12px; color: var(--muted); }
+
+    .links a {
+      display: inline-block;
+      margin: 6px 8px 0 0;
+      text-decoration: none;
+      color: var(--brand);
+      font-weight: 700;
+      border: 1px solid #c5d9ef;
+      background: #f6fbff;
+      border-radius: 10px;
+      padding: 7px 10px;
+    }
+
+    .ok { color: var(--ok); font-weight: 700; }
+    .warn { color: var(--warn); font-weight: 700; }
+
+    @media (max-width: 950px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .leaders { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 620px) {
+      .grid { grid-template-columns: 1fr; }
+      .wrap { padding: 14px; }
+      .hero { padding: 16px; }
+      table { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <h1>Painel de Organizacao - Tibau do Sul</h1>
+      <p>
+        Pagina central para organizar governanca, quadro funcional e indicadores financeiros da Prefeitura de Tibau do Sul.
+      </p>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <div class="metric">Funcionarios (folha 2026-01)</div>
+        <div class="value">966</div>
+      </article>
+      <article class="card">
+        <div class="metric">Secretarios ativos</div>
+        <div class="value">16</div>
+      </article>
+      <article class="card">
+        <div class="metric">Receita arrecadada 2025</div>
+        <div class="value">R$ 123,40 mi</div>
+      </article>
+      <article class="card">
+        <div class="metric">Despesa paga 2025</div>
+        <div class="value">R$ 115,80 mi</div>
+      </article>
+    </section>
+
+    <section class="sec">
+      <h2>Liderancas</h2>
+      <div class="leaders">
+        <article class="card">
+          <span class="badge">PREFEITO</span>
+          <div class="value" style="font-size:19px">Valdenicio Jose da Costa</div>
+          <div class="mini">Orgao: Gabinete do Prefeito</div>
+          <div class="mini">Folha 2026-01 (liquido): R$ 25.267,77</div>
+        </article>
+        <article class="card">
+          <span class="badge">VICE-PREFEITO</span>
+          <div class="value" style="font-size:19px">Manoel Messias Marinho</div>
+          <div class="mini">Orgao: Gabinete do Prefeito</div>
+          <div class="mini">Folha 2026-01 (liquido): R$ 13.421,55</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="sec">
+      <h2>Secretarias (recorte ativo em 2026-01)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Secretaria / Orgao</th>
+            <th>Responsavel</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>SEC. MUN. DE SAUDE</td><td>Jucileide Barros de Albuquerque Costa</td></tr>
+          <tr><td>SEC. MUN. DE TRIBUTACAO</td><td>Walter Jose da Costa</td></tr>
+          <tr><td>SEC. MUN. DE EDUCACAO</td><td>Charles Clayton Galvao Soares</td></tr>
+          <tr><td>SEC. MUN. PLANEJAMENTO E FINANCAS</td><td>Gilkissa Jacqueline Candido da Silva Costa</td></tr>
+          <tr><td>SEC. MUN. DE INFRAESTRUTURA</td><td>Adaebson Santos da Silva</td></tr>
+          <tr><td>SEC. MUN. DE TURISMO</td><td>Lavoisyer Emerson Macena</td></tr>
+          <tr><td>SEC. MUN. TRAB/HABIT/A.SOCIAL</td><td>Luciana de Albuquerque Borges</td></tr>
+          <tr><td>SECRETARIA MUNICIPAL DE PESCA</td><td>Geraldo Jose da Silva</td></tr>
+        </tbody>
+      </table>
+      <p class="mini">Lista completa no arquivo <code>data/exports/secretarios-ativos-folha-2026-01.csv</code>.</p>
+    </section>
+
+    <section class="sec">
+      <h2>Financas (2025)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Indicador</th>
+            <th>Valor</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Receita prevista atualizada</td><td>R$ 144.759.762,00</td><td class="warn">Planejado</td></tr>
+          <tr><td>Receita arrecadada</td><td>R$ 123.399.081,94</td><td class="ok">Realizado</td></tr>
+          <tr><td>Orcamento atualizado de despesa</td><td>R$ 137.422.762,00</td><td class="warn">Planejado</td></tr>
+          <tr><td>Despesa empenhada</td><td>R$ 117.613.755,74</td><td class="ok">Execucao</td></tr>
+          <tr><td>Despesa paga</td><td>R$ 115.802.204,03</td><td class="ok">Execucao</td></tr>
+          <tr><td>Contratos publicados em 2025</td><td>226 (R$ 75.910.291,21)</td><td class="ok">Monitorado</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="sec links">
+      <h2>Arquivos de apoio</h2>
+      <a href="../../docs/research/dossie-governo-funcionarios-financas.md">Dossie completo (MD)</a>
+      <a href="../../docs/research/mapeamento-portalcr2.md">Mapeamento inicial (MD)</a>
+      <a href="../../data/exports/funcionarios-folha-2026-01.csv">Funcionarios (CSV)</a>
+      <a href="../../data/exports/secretarios-ativos-folha-2026-01.csv">Secretarios ativos (CSV)</a>
+      <a href="../../data/exports/resumo-dados.json">Resumo tecnico (JSON)</a>
+      <p class="mini">Dica: para apresentar em reuniao, abra este arquivo no navegador e use o modo tela cheia.</p>
+    </section>
+  </main>
+</body>
+</html>

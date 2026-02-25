@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load formatters %}
+
+{% block title %}Tecnologia | Sistema Tibau do Sul{% endblock %}
+
+{% block content %}
+<header class="page-intro">
+  <h1>Tecnologia e Afins</h1>
+  <p>Contratos relacionados a tecnologia, software, sistemas e infraestrutura digital.</p>
+</header>
+
+<section class="panel">
+  <div class="grid grid-3">
+    <article class="kpi accent">
+      <div class="label">Total em tecnologia</div>
+      <div class="v">{{ total_tech|currency_brl }}</div>
+    </article>
+    <article class="kpi">
+      <div class="label">Total geral contratos</div>
+      <div class="v">{{ total_geral|currency_brl }}</div>
+    </article>
+    <article class="kpi">
+      <div class="label">Participacao em TI</div>
+      <div class="v">{% if total_geral %}{% widthratio total_tech total_geral 100 %}%{% else %}0%{% endif %}</div>
+      <div class="meta">Proporcao de tecnologia sobre o total</div>
+    </article>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>Contratos de tecnologia</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Numero</th><th>Empresa</th><th>Modalidade</th><th>Valor</th><th>Objeto</th></tr></thead>
+      <tbody>
+        {% for item in contratos_tech %}
+        <tr>
+          <td>{{ item.numero }}</td>
+          <td>{{ item.empresa }}</td>
+          <td>{{ item.modalidade }}</td>
+          <td class="num">{{ item.valor|currency_brl }}</td>
+          <td>{{ item.objeto|truncatechars:140 }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">Nenhum contrato de tecnologia encontrado.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

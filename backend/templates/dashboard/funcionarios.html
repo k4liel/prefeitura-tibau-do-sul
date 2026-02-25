@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Funcionarios | Sistema Tibau do Sul{% endblock %}
+
+{% block content %}
+<header class="page-intro">
+  <h1>Funcionarios</h1>
+  <p>Consulta de servidores publicos municipais por nome, orgao e tipo de vinculo.</p>
+</header>
+
+<div class="export-bar">
+  <a class="link-btn" href="/api/pessoal/funcionarios/?export=csv&search={{ search }}&orgao={{ orgao }}&vinculo={{ vinculo }}&cargo={{ cargo }}">Exportar CSV</a>
+</div>
+
+<section class="panel">
+  <form method="get" class="filter-grid">
+    <div>
+      <label for="funcionarios-search" class="sr-only">Nome</label>
+      <input id="funcionarios-search" type="text" name="search" placeholder="Nome" value="{{ search }}">
+    </div>
+    <div>
+      <label for="funcionarios-orgao" class="sr-only">Orgao</label>
+      <input id="funcionarios-orgao" type="text" name="orgao" placeholder="Orgao" value="{{ orgao }}">
+    </div>
+    <div>
+      <label for="funcionarios-vinculo" class="sr-only">Vinculo</label>
+      <input id="funcionarios-vinculo" type="text" name="vinculo" placeholder="Vinculo" value="{{ vinculo }}">
+    </div>
+    <div>
+      <label for="funcionarios-cargo" class="sr-only">Cargo</label>
+      <input id="funcionarios-cargo" type="text" name="cargo" placeholder="Cargo" value="{{ cargo }}">
+    </div>
+    <button type="submit">Filtrar</button>
+  </form>
+</section>
+
+<section class="panel">
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Matricula</th><th>Nome</th><th>Cargo</th><th>Orgao</th><th>Vinculo</th><th>Bruto</th><th>Liquido</th></tr></thead>
+      <tbody>
+        {% for item in page_obj %}
+        <tr>
+          <td>{{ item.matricula|default:"-" }}</td>
+          <td>{{ item.nome }}</td>
+          <td>{{ item.cargo|default:"-" }}</td>
+          <td>{{ item.orgao }}</td>
+          <td>{{ item.vinculo }}</td>
+          <td class="num">R$ {{ item.valor_bruto|floatformat:2 }}</td>
+          <td class="num">R$ {{ item.valor_liquido|floatformat:2 }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7">Nenhum funcionario encontrado.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if page_obj.paginator.num_pages > 1 %}
+  <nav class="pagination">
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}&search={{ search }}&orgao={{ orgao }}&vinculo={{ vinculo }}&cargo={{ cargo }}">Anterior</a>
+    {% endif %}
+    <span class="info">Pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}&search={{ search }}&orgao={{ orgao }}&vinculo={{ vinculo }}&cargo={{ cargo }}">Proxima</a>
+    {% endif %}
+  </nav>
+  {% endif %}
+</section>
+{% endblock %}
