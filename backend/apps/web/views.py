@@ -974,6 +974,21 @@ class RemuneracoesView(TemplateView):
             1 for item in rows_vereadores if item.get("valor_bruto") is None
         )
 
+        # Search and paginate servidores
+        search = self.request.GET.get("search", "").strip()
+        filtered_servidores = rows_servidores
+        if search:
+            search_lower = search.lower()
+            filtered_servidores = [
+                r for r in rows_servidores
+                if search_lower in (r["nome"] or "").lower()
+                or search_lower in (r["orgao"] or "").lower()
+            ]
+
+        paginator = Paginator(filtered_servidores, 25)
+        page_number = self.request.GET.get("page", 1)
+        page_obj = paginator.get_page(page_number)
+
         context.update(
             {
                 "resumo": {
@@ -990,7 +1005,8 @@ class RemuneracoesView(TemplateView):
                 },
                 "rows_estrategicos": rows_estrategicos,
                 "rows_vereadores": rows_vereadores,
-                "rows_servidores": rows_servidores,
+                "page_obj": page_obj,
+                "search": search,
                 "referencias_legais": {
                     "lei_804": {
                         "url": "https://www.tibaudosul.rn.leg.br/processo-legislativo-1/leis-municipais/lei-ordinaria-municipal/2023/lei-ordinaria-municipal-no-804-de-18-de-maio-de-2023/at_download/file",

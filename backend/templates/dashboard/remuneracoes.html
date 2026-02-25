@@ -43,27 +43,27 @@
   <h2>Prefeito, vice e secretarios</h2>
   <div class="table-wrap">
     <table>
-      <thead><tr><th>Cargo</th><th>Nome</th><th class="hide-mobile">Orgao</th><th class="hide-mobile">Funcao</th><th class="hide-mobile">Vinculo</th><th>Bruto</th><th>Liquido</th><th class="hide-mobile">Fonte</th></tr></thead>
+      <thead><tr><th>Cargo</th><th>Nome</th><th class="hide-mobile">Orgao</th><th>Bruto</th><th>Liquido</th><th class="hide-mobile">Fonte</th></tr></thead>
       <tbody>
         {% for item in rows_estrategicos %}
         <tr>
           <td data-label="Cargo"><span class="badge">{{ item.cargo }}</span></td>
           <td class="cell-text" data-label="Nome">{{ item.nome }}</td>
           <td class="cell-text hide-mobile" data-label="Orgao">{{ item.orgao }}</td>
-          <td class="hide-mobile" data-label="Funcao">{{ item.funcao|default:"-" }}</td>
-          <td class="hide-mobile" data-label="Vinculo">{{ item.vinculo }}</td>
           <td class="num" data-label="Bruto">{% if item.valor_bruto is not None %}{{ item.valor_bruto|currency_brl }}{% else %}-{% endif %}</td>
           <td class="num" data-label="Liquido">{% if item.valor_liquido is not None %}{{ item.valor_liquido|currency_brl }}{% else %}-{% endif %}</td>
           <td class="hide-mobile" data-label="Fonte">
-            {% if item.fonte_salario == 'folha' %}
+            {% if item.fonte_salario == 'folha' or 'export' in item.fonte_salario %}
             <span class="badge success">folha</span>
+            {% elif 'lei' in item.fonte_salario %}
+            <span class="badge warning">lei</span>
             {% else %}
-            <span class="badge warning">{{ item.fonte_salario }}</span>
+            <span class="badge">{{ item.fonte_salario }}</span>
             {% endif %}
           </td>
         </tr>
         {% empty %}
-        <tr><td colspan="8">Sem registros estrategicos.</td></tr>
+        <tr><td colspan="6">Sem registros estrategicos.</td></tr>
         {% endfor %}
       </tbody>
     </table>
@@ -74,27 +74,26 @@
   <h2>Vereadores</h2>
   <div class="table-wrap">
     <table>
-      <thead><tr><th>Cargo</th><th>Nome</th><th class="hide-mobile">Orgao</th><th class="hide-mobile">Funcao</th><th class="hide-mobile">Vinculo</th><th>Bruto</th><th>Liquido</th><th class="hide-mobile">Fonte</th></tr></thead>
+      <thead><tr><th>Nome</th><th class="hide-mobile">Orgao</th><th>Bruto</th><th>Liquido</th><th class="hide-mobile">Fonte</th></tr></thead>
       <tbody>
         {% for item in rows_vereadores %}
         <tr>
-          <td data-label="Cargo"><span class="badge">{{ item.cargo }}</span></td>
           <td class="cell-text" data-label="Nome">{{ item.nome }}</td>
           <td class="cell-text hide-mobile" data-label="Orgao">{{ item.orgao }}</td>
-          <td class="hide-mobile" data-label="Funcao">{{ item.funcao|default:"-" }}</td>
-          <td class="hide-mobile" data-label="Vinculo">{{ item.vinculo }}</td>
           <td class="num" data-label="Bruto">{% if item.valor_bruto is not None %}{{ item.valor_bruto|currency_brl }}{% else %}-{% endif %}</td>
           <td class="num" data-label="Liquido">{% if item.valor_liquido is not None %}{{ item.valor_liquido|currency_brl }}{% else %}-{% endif %}</td>
           <td class="hide-mobile" data-label="Fonte">
-            {% if item.fonte_salario == 'folha' %}
+            {% if item.fonte_salario == 'folha' or 'export' in item.fonte_salario %}
             <span class="badge success">folha</span>
+            {% elif 'lei' in item.fonte_salario %}
+            <span class="badge warning">lei</span>
             {% else %}
-            <span class="badge warning">{{ item.fonte_salario }}</span>
+            <span class="badge">{{ item.fonte_salario }}</span>
             {% endif %}
           </td>
         </tr>
         {% empty %}
-        <tr><td colspan="8">Sem vereadores cadastrados.</td></tr>
+        <tr><td colspan="5">Sem vereadores cadastrados.</td></tr>
         {% endfor %}
       </tbody>
     </table>
@@ -102,12 +101,22 @@
 </section>
 
 <section class="panel">
-  <h2>Todos os servidores</h2>
+  <div class="split">
+    <h2>Todos os servidores</h2>
+    <span class="badge">{{ page_obj.paginator.count }} registros</span>
+  </div>
+  <form method="get" class="filter-grid" style="margin-bottom: 14px;">
+    <div>
+      <label for="rem-search" class="sr-only">Buscar servidor</label>
+      <input id="rem-search" type="text" name="search" placeholder="Buscar por nome ou orgao" value="{{ search }}">
+    </div>
+    <button type="submit">Filtrar</button>
+  </form>
   <div class="table-wrap">
     <table>
       <thead><tr><th>Nome</th><th class="hide-mobile">Orgao</th><th class="hide-mobile">Vinculo</th><th>Bruto</th><th>Liquido</th></tr></thead>
       <tbody>
-        {% for item in rows_servidores %}
+        {% for item in page_obj %}
         <tr>
           <td class="cell-text" data-label="Nome">{{ item.nome }}</td>
           <td class="cell-text hide-mobile" data-label="Orgao">{{ item.orgao }}</td>
@@ -116,10 +125,21 @@
           <td class="num" data-label="Liquido">{{ item.valor_liquido|currency_brl }}</td>
         </tr>
         {% empty %}
-        <tr><td colspan="5">Sem servidores na base.</td></tr>
+        <tr><td colspan="5">Nenhum servidor encontrado.</td></tr>
         {% endfor %}
       </tbody>
     </table>
   </div>
+  {% if page_obj.has_other_pages %}
+  <nav class="pagination" aria-label="Paginacao">
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}&search={{ search }}">Anterior</a>
+    {% endif %}
+    <span class="info">Pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}&search={{ search }}">Proxima</a>
+    {% endif %}
+  </nav>
+  {% endif %}
 </section>
 {% endblock %}
